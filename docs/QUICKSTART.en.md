@@ -1,4 +1,4 @@
-# Personal Navigator Quickstart
+# How to Work with Personal Navigator
 
 After installation, you do not need to know the full methodology first. Ask the agent to use the skill and start with the Personality Map.
 

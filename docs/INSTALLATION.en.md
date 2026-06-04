@@ -28,7 +28,7 @@ If your environment cannot write files automatically, you can still use the meth
 
 Important: the internal reference files are written in English as the portable core, but user-facing answers, interview questions, the Map, journal, open loops, supplements, and ready-to-save memory blocks must be created in the user's language. File names and technical states may remain stable English identifiers.
 
-After installation, continue with the [Quickstart](QUICKSTART.en.md).
+After installation, continue with [How to work](QUICKSTART.en.md).
 
 ## Recommended Cross-Agent Path
 

@@ -421,7 +421,7 @@
             <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
           </div>
           <a class="nav-link" href="#top">Top</a>
-          <a class="nav-link" id="quickstartLink" href="quickstart.html">Старт</a>
+          <a class="nav-link" id="quickstartLink" href="quickstart.html">Как работать</a>
           <a class="nav-link" id="installLink" href="installation.html">Установка</a>
           <a class="nav-link" href="https://t.me/dmitry_kozyura">Telegram</a>
         </nav>
@@ -442,8 +442,8 @@
                 Внутренний Огонь — это состояние, когда человек снова чувствует: я живу свою жизнь, в удовольствии, в драйве, у меня есть энергия, смысл и движение в гармонии со своей природой.
               </p>
               <div class="actions">
-                <a class="button" href="quickstart.html">Хочу попробовать</a>
-                <a class="button secondary" href="#details-ru">Как это работает</a>
+                <a class="button" href="installation.html">Установить</a>
+                <a class="button secondary" href="quickstart.html">Как работать</a>
               </div>
             </div>
             <aside class="compass-card">
@@ -605,8 +605,8 @@
               Skill можно использовать в Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes и адаптировать через AGENTS.md для Cursor, Gemini CLI, Aider и других сред.
             </p>
             <div class="actions">
-              <a class="button" href="installation.html">Открыть инструкции</a>
-              <a class="button secondary" href="quickstart.html">Быстрый старт</a>
+              <a class="button" href="installation.html">Установить</a>
+              <a class="button secondary" href="quickstart.html">Как работать</a>
               <a class="button secondary" href="installation.en.html">English install guide</a>
             </div>
           </div>
@@ -655,8 +655,8 @@
                 Living Fire is the state where you feel again: I am living my life, with pleasure, drive, energy, meaning, and movement in harmony with my nature.
               </p>
               <div class="actions">
-                <a class="button" href="quickstart.en.html">Try it</a>
-                <a class="button secondary" href="#details-en">How it works</a>
+                <a class="button" href="installation.en.html">Install</a>
+                <a class="button secondary" href="quickstart.en.html">How to work</a>
               </div>
             </div>
             <aside class="compass-card">
@@ -818,8 +818,8 @@
               The skill can run in Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes, and can be adapted through AGENTS.md for Cursor, Gemini CLI, Aider, and other environments.
             </p>
             <div class="actions">
-              <a class="button" href="installation.en.html">Open install guide</a>
-              <a class="button secondary" href="quickstart.en.html">Quickstart</a>
+              <a class="button" href="installation.en.html">Install</a>
+              <a class="button secondary" href="quickstart.en.html">How to work</a>
               <a class="button secondary" href="installation.html">Русская инструкция</a>
             </div>
           </div>
@@ -877,7 +877,7 @@
         }
         if (quickstartLink) {
           quickstartLink.href = language === "en" ? "quickstart.en.html" : "quickstart.html";
-          quickstartLink.textContent = language === "en" ? "Start" : "Старт";
+          quickstartLink.textContent = language === "en" ? "How to work" : "Как работать";
         }
         buttons.forEach((button) => {
           button.setAttribute("aria-pressed", String(button.dataset.langButton === language));

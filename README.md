@@ -12,7 +12,7 @@
 
 Это не ещё один productivity-бот и не набор мотивационных промптов. Навигатор не пытается делать человека просто эффективнее. Он помогает человеку становиться яснее, свободнее, живее и ближе к собственной природе.
 
-[English](README.en.md) · [Быстрый старт](docs/QUICKSTART.md) · [Инструкция установки](docs/INSTALLATION.md) · [GitHub Pages версия](docs/index.html)
+[English](README.en.md) · [Как работать](docs/QUICKSTART.md) · [Инструкция установки](docs/INSTALLATION.md) · [GitHub Pages версия](docs/index.html)
 
 Рекомендуемое имя GitHub-репозитория: `personal-navigator`. Устанавливаемый skill-пакет внутри репозитория называется `personal-navigator-skill/`.
 
@@ -246,7 +246,7 @@ Skill спроектирован как переносимая агентная 
 
 Платформа может отличаться. Методологическое ядро остаётся тем же: Карта, журнал, open loops, режимы навигации и аккуратное обновление памяти.
 
-## Быстрый старт
+## Как работать после установки
 
 Для Codex-подобной среды:
 
@@ -263,7 +263,7 @@ cp -R personal-navigator-skill ~/.agents/skills/
 
 После активации skill создаёт в рабочем пространстве файлы памяти из шаблонов и начинает вести пользователя через Карту личности.
 
-Первый пользовательский сценарий есть в [Быстром старте](docs/QUICKSTART.md).
+Первый пользовательский сценарий после установки описан в [Как работать](docs/QUICKSTART.md).
 
 Подробные инструкции для Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Cursor и сред без нативной поддержки skills лежат в [docs/INSTALLATION.md](docs/INSTALLATION.md).
 

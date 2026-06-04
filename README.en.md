@@ -12,7 +12,7 @@ I call the main orientation of this system **inner Fire** or **Living Fire**. Th
 
 This is not another productivity bot or a set of motivational prompts. Personal Navigator does not try to make a person merely more efficient. It helps the person become clearer, freer, more alive, and more aligned with their own nature.
 
-[Русский](README.md) · [Quickstart](docs/QUICKSTART.en.md) · [Installation Guide](docs/INSTALLATION.en.md) · [GitHub Pages version](docs/index.html)
+[Русский](README.md) · [How to work](docs/QUICKSTART.en.md) · [Installation Guide](docs/INSTALLATION.en.md) · [GitHub Pages version](docs/index.html)
 
 Recommended GitHub repository name: `personal-navigator`. The installable skill package inside the repository is `personal-navigator-skill/`.
 
@@ -248,9 +248,9 @@ The skill is designed as a portable agent methodology. The current repository co
 
 See [docs/INSTALLATION.en.md](docs/INSTALLATION.en.md) for platform-specific instructions.
 
-The first user flow is documented in the [Quickstart](docs/QUICKSTART.en.md).
+The first post-install user flow is documented in [How to work](docs/QUICKSTART.en.md).
 
-## Quick Start
+## How to Work After Installation
 
 For a Codex-like environment:
 
