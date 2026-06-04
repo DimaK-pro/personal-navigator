@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Personal Navigator</title>
+    <meta
+      name="description"
+      content="Personal Navigator: AI navigation toward a living Personality Map, self-understanding, energy, development memory, and Living Fire."
+    >
+    <style>
+      :root {
+        --bg: #fbfbf8;
+        --panel: #ffffff;
+        --ink: #20201d;
+        --muted: #696a61;
+        --line: #dfded7;
+        --fire: #d96f35;
+        --moss: #55715b;
+        --sea: #315f68;
+        --gold: #b88a2f;
+        --clay: #8e5a3d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: var(--sea);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 251, 248, 0.92);
+        backdrop-filter: blur(14px);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .topbar-inner {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 750;
+      }
+
+      .brand img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .lang-switch button {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        min-width: 46px;
+        height: 36px;
+        padding: 0 12px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .lang-switch button[aria-pressed="true"] {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .nav-link {
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        color: var(--ink);
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--line);
+      }
+
+      .hero {
+        padding: 68px 0 44px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
+        gap: 38px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--fire);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(42px, 6vw, 72px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: 20px;
+        max-width: 720px;
+      }
+
+      .fire-note {
+        margin: 26px 0 0;
+        max-width: 680px;
+        border-left: 3px solid var(--fire);
+        padding: 2px 0 2px 18px;
+        color: var(--ink);
+        font-size: 18px;
+      }
+
+      .micro-copy {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 14px 0 0;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .compass-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 28px;
+      }
+
+      .compass-card img {
+        width: 88px;
+        height: 88px;
+      }
+
+      .compass-card p {
+        margin: 22px 0 0;
+        color: var(--muted);
+      }
+
+      .compass-title {
+        display: block;
+        margin-top: 22px;
+        color: var(--clay);
+        font-weight: 800;
+      }
+
+      section {
+        padding: 46px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0 0 18px;
+        font-size: 34px;
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .section-lead {
+        color: var(--muted);
+        max-width: 780px;
+        margin: 0 0 28px;
+        font-size: 18px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+      }
+
+      .card p {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .card .plain-link {
+        display: inline-flex;
+        margin-top: 14px;
+        font-weight: 700;
+      }
+
+      .tag {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: rgba(217, 111, 53, 0.12);
+        color: #8a431e;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .path-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .path-step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+      }
+
+      .path-step span {
+        color: var(--fire);
+        font-weight: 850;
+        font-size: 13px;
+      }
+
+      .story-panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 26px;
+      }
+
+      .story-panel p + p {
+        margin-top: 14px;
+      }
+
+      .story-panel h3:not(:first-child) {
+        margin-top: 22px;
+      }
+
+      .community-note {
+        border-top: 1px solid var(--line);
+        margin-top: 22px;
+        padding-top: 18px;
+      }
+
+      .flow-step {
+        min-height: 96px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .flow-step strong {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+      }
+
+      .flow-step span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .map-list {
+        columns: 2;
+        column-gap: 32px;
+        padding-left: 18px;
+      }
+
+      .map-list li {
+        break-inside: avoid;
+        margin: 0 0 10px;
+      }
+
+      .footer {
+        padding: 36px 0 48px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      [data-lang-panel] {
+        display: none;
+      }
+
+      [data-lang-panel].active {
+        display: block;
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid,
+        .grid-3,
+        .grid-2,
+        .path-grid,
+        .flow {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding-top: 42px;
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 12px 0;
+        }
+
+        .nav {
+          justify-content: flex-start;
+        }
+
+        .map-list {
+          columns: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" id="top">
+      <div class="wrap topbar-inner">
+        <div class="brand">
+          <img src="assets/logo-ai-navigator.svg" alt="">
+          <span>Personal Navigator</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <div class="lang-switch" aria-label="Language">
+            <button type="button" data-lang-button="ru" aria-pressed="true">RU</button>
+            <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+          </div>
+          <a class="nav-link" href="#top">Top</a>
+          <a class="nav-link" id="quickstartLink" href="quickstart.html">Старт</a>
+          <a class="nav-link" id="installLink" href="installation.html">Установка</a>
+          <a class="nav-link" href="https://t.me/dmitry_kozyura">Telegram</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div data-lang-panel="ru" class="active">
+        <section class="hero" id="overview">
+          <div class="wrap hero-grid">
+            <div>
+              <p class="eyebrow">AI skill для персональной навигации</p>
+              <h1>Personal Navigator</h1>
+              <p class="lead">
+                Бывает, что внешне всё вроде нормально: есть дела, планы, задачи, люди рядом. Но внутри нет ощущения, что вы на своём месте. Энергия утекает, решения даются тяжело, чужие ожидания звучат громче собственного голоса. Personal Navigator помогает собрать Карту личности и понять, что вас включает, что сбивает и куда вам правда хочется двигаться.
+              </p>
+              <p class="fire-note">
+                Внутренний Огонь — это состояние, когда человек снова чувствует: я живу свою жизнь, в удовольствии, в драйве, у меня есть энергия, смысл и движение в гармонии со своей природой.
+              </p>
+              <div class="actions">
+                <a class="button" href="quickstart.html">Хочу попробовать</a>
+                <a class="button secondary" href="#details-ru">Как это работает</a>
+              </div>
+            </div>
+            <aside class="compass-card">
+              <img src="assets/logo-ai-navigator.svg" alt="">
+              <strong class="compass-title">От хаоса к ясности</strong>
+              <p>
+                Сначала Навигатор знакомится с вами: задаёт вопросы, уточняет, собирает живые примеры. Потом помогает смотреть на решения уже не “в среднем”, а через вашу реальную Карту.
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Зачем вам такой skill</h2>
+            <p class="section-lead">
+              Если вы уже пробовали спрашивать AI о жизни, целях, работе или сложных решениях, вы могли почувствовать: ответ вроде умный, но не совсем про вас. Ему не хватает главного — понимания вашего внутреннего рисунка.
+            </p>
+            <p class="section-lead">
+              Контекст здесь нужен не ради профиля или красивого описания. Он помогает собрать целую картину: что вами движет, где рождается энергия, что истощает, какой потенциал пока не реализован, где вы действуете из привычной реакции, а где начинается ваш собственный путь. Без этого AI угадывает. С этим он может помогать вам становиться яснее, свободнее, живее и ближе к своей природе.
+            </p>
+            <div class="grid-3">
+              <article class="card">
+                <span class="tag">Энергия</span>
+                <h3>Найти, от чего вы оживаете</h3>
+                <p>Не “как себя замотивировать”, а где у вас появляется настоящий интерес, драйв, лёгкость и чувство: вот это моё.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Ясность</span>
+                <h3>Отделить своё от чужого</h3>
+                <p>Увидеть роли, решения, людей и привычные сценарии, после которых вы становитесь дальше от себя.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Движение</span>
+                <h3>Сделать следующий шаг</h3>
+                <p>Не идеальный шаг из книжки, а тот, который подходит вашему состоянию, характеру и реальной жизни прямо сейчас.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Путь к внутреннему Огню</h2>
+            <p class="section-lead">
+              Всё начинается не с советов, а с разговора. Из ответов постепенно появляется Карта: не ярлык и не диагноз, а рабочее описание человека, на которое можно опираться.
+            </p>
+            <div class="path-grid">
+              <article class="path-step">
+                <span>01</span>
+                <h3>Создание Карты личности</h3>
+                <p>Навигатор ведёт дружеское интервью и раскрывает 9 блоков личности без допроса и давления.</p>
+              </article>
+              <article class="path-step">
+                <span>02</span>
+                <h3>Формирование внутренней опоры</h3>
+                <p>В Карте появляются ценности, энергия, способ действия, отношения, опыт, цели и живость.</p>
+              </article>
+              <article class="path-step">
+                <span>03</span>
+                <h3>Помощь в принятии решений</h3>
+                <p>Если контекста мало, Навигатор не делает вид, что всё понял. Он задаёт вопрос, который помогает и с ситуацией, и с Картой.</p>
+              </article>
+              <article class="path-step">
+                <span>04</span>
+                <h3>Постоянное развитие</h3>
+                <p>Журнал сохраняет важные события, выводы и сдвиги, чтобы было видно не только “что я понял”, но и как я меняюсь.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap grid-2">
+            <div>
+              <h2>Сборка Карты — уже часть эффекта</h2>
+              <p class="section-lead">
+                Это не анкета на сто пунктов. Вопросы простые, но отвечать на них иногда непросто: приходится вспоминать реальные выборы, людей, ошибки, желания, моменты силы и моменты, где вы сами себя теряли.
+              </p>
+              <p class="section-lead">
+                Вы отвечаете обычными словами. Навигатор берёт эти ответы как якоря, соединяет их между собой и аккуратно вытаскивает то, что самому человеку не всегда видно сразу.
+              </p>
+            </div>
+            <div class="story-panel">
+              <h3>Момент готовой Карты</h3>
+              <p>
+                Когда все 9 блоков собраны, Навигатор не просто сохраняет файл. Он перечитывает материал, убирает повторы, проверяет противоречия, отмечает слабые места и только потом отдаёт первую полную версию Карты.
+              </p>
+              <p>
+                Когда читаешь такую Карту, появляется редкое ощущение: “Да, это правда про меня”. В этом много силы. Не потому что AI всё знает, а потому что он помог собрать вас в одну понятную картину.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="details-ru">
+          <div class="wrap">
+            <h2>Не советчик. Навигатор.</h2>
+            <p class="section-lead">
+              Обычный AI часто спешит ответить. Personal Navigator сначала проверяет, хватает ли ему контекста. Если Карта не собрана, он прямо говорит: полная навигация пока невозможна, но можно разобрать ситуацию и заодно закрыть часть недостающих блоков.
+            </p>
+            <div class="grid-3">
+              <article class="card">
+                <span class="tag">Карта</span>
+                <h3>9 блоков личности</h3>
+                <p>Ценности, энергия, живость, психотипы, действие, отношения, опыт, цели и качество жизни.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Память</span>
+                <h3>Журнал развития</h3>
+                <p>Навигатор запоминает важные события, выводы, решения, повторяющиеся темы и изменения в состоянии.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Честность</span>
+                <h3>Open loops</h3>
+                <p>Если данных не хватает, агент не додумывает. Он оставляет вопрос открытым и возвращается к нему позже.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Архитектура</h2>
+            <p class="section-lead">
+              Внутри это простая и строгая логика: сначала Карты нет, потом она собирается, затем появляется первая полная версия, после этого включается полноценная навигация и обновление памяти.
+            </p>
+            <div class="flow" aria-label="Navigator lifecycle">
+              <div class="flow-step"><strong>NO_MAP</strong><span>Карты ещё нет</span></div>
+              <div class="flow-step"><strong>MAP_BUILDING</strong><span>Дружеское интервью</span></div>
+              <div class="flow-step"><strong>MAP_V1_READY</strong><span>9 блоков собраны</span></div>
+              <div class="flow-step"><strong>NAVIGATION</strong><span>Полная навигация</span></div>
+              <div class="flow-step"><strong>REFLECTION_UPDATE</strong><span>Живое обновление</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Что внутри Карты</h2>
+            <ol class="map-list">
+              <li>Ядро личности</li>
+              <li>Психо-энергетический профиль</li>
+              <li>Стихия Живого Огня</li>
+              <li>Психотип и научные модели</li>
+              <li>Способ действия</li>
+              <li>Социальное Я</li>
+              <li>Опыт и капитал</li>
+              <li>Будущее и цели</li>
+              <li>Метрики личности и качества жизни</li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Для каких сред</h2>
+            <p class="section-lead">
+              Skill можно использовать в Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes и адаптировать через AGENTS.md для Cursor, Gemini CLI, Aider и других сред.
+            </p>
+            <div class="actions">
+              <a class="button" href="installation.html">Открыть инструкции</a>
+              <a class="button secondary" href="quickstart.html">Быстрый старт</a>
+              <a class="button secondary" href="installation.en.html">English install guide</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="author-ru">
+          <div class="wrap grid-2">
+            <div>
+              <h2>Автор и сообщество</h2>
+              <p class="section-lead">
+                Проект создан Дмитрием Козюра и начинался как личный инструмент: в сложный период, когда нужно было не больше мотивации, а честно понять, что со мной происходит, куда уходит энергия и как снова пересобрать себя.
+              </p>
+            </div>
+            <div class="story-panel">
+              <h3>Почему я делюсь этим</h3>
+              <p>
+                Я проверил этот подход на себе: разбирал свою личность с AI, собирал Карту, сверял выводы с реальностью и постепенно выровнялся. Personal Navigator родился из этого опыта.
+              </p>
+              <p>
+                Сейчас я выкладываю его как open-source skill, потому что хочу, чтобы AI помогал людям не только быстрее работать, но и лучше понимать себя.
+              </p>
+              <div class="community-note">
+                <h3>Как поддержать и участвовать</h3>
+                <p>
+                  Поставить звезду на GitHub, открыть Issue, если будет найдена ошибка, или написать идею/сценарий в Discussions. Это поможет подключить больше людей, развивать методологию и внедрять улучшения вместе с сообществом.
+                </p>
+              </div>
+              <h3>Личные страницы автора:</h3>
+              <p><a href="https://instagram.com/dmitry.kozyura">Instagram</a></p>
+              <p><a href="https://t.me/dmitry_kozyura">Telegram</a></p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div data-lang-panel="en">
+        <section class="hero">
+          <div class="wrap hero-grid">
+            <div>
+              <p class="eyebrow">AI skill for personal navigation</p>
+              <h1>Personal Navigator</h1>
+              <p class="lead">
+                Sometimes everything looks fine from the outside: work, plans, people, responsibilities. But inside, something is off. Energy leaks, decisions feel heavy, and other people’s expectations get louder than your own voice. Personal Navigator helps you build a Personality Map and see what gives you energy, what pulls you away from yourself, and where you actually want to move.
+              </p>
+              <p class="fire-note">
+                Living Fire is the state where you feel again: I am living my life, with pleasure, drive, energy, meaning, and movement in harmony with my nature.
+              </p>
+              <div class="actions">
+                <a class="button" href="quickstart.en.html">Try it</a>
+                <a class="button secondary" href="#details-en">How it works</a>
+              </div>
+            </div>
+            <aside class="compass-card">
+              <img src="assets/logo-ai-navigator.svg" alt="">
+              <strong class="compass-title">From noise to clarity</strong>
+              <p>
+                First, the Navigator gets to know you: asks questions, clarifies, gathers real examples. Then it helps you look at decisions through your own Map, not through average advice.
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Why you might need this skill</h2>
+            <p class="section-lead">
+              If you have already asked AI about life, goals, work, or difficult decisions, you may have felt it: the answer sounds smart, but not fully about you. What is missing is the deeper picture of how you are built.
+            </p>
+            <p class="section-lead">
+              Context is not collected to create a nice profile. It is collected to see the whole pattern: what moves you, where energy appears, what drains you, which potential is still unused, where you act from old reactions, and where your own path begins. Without that, AI guesses. With it, the Navigator can help you become clearer, freer, more alive, and closer to your nature.
+            </p>
+            <div class="grid-3">
+              <article class="card">
+                <span class="tag">Energy</span>
+                <h3>Find what brings you alive</h3>
+                <p>Not “how to motivate yourself,” but where real interest, drive, ease, and the feeling of “this is mine” appear.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Clarity</span>
+                <h3>Separate yours from not yours</h3>
+                <p>Notice roles, decisions, people, and familiar scenarios after which you feel farther away from yourself.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Movement</span>
+                <h3>Choose the next step</h3>
+                <p>Not the perfect step from a book, but the one that fits your state, character, and real life right now.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>The Path to Living Fire</h2>
+            <p class="section-lead">
+              It starts with conversation, not advice. From your answers, a Map appears: not a label or diagnosis, but a practical description of the person you can rely on.
+            </p>
+            <div class="path-grid">
+              <article class="path-step">
+                <span>01</span>
+                <h3>Creating the Personality Map</h3>
+                <p>AI guides a friendly interview and gradually reveals 9 personality blocks without interrogation or pressure.</p>
+              </article>
+              <article class="path-step">
+                <span>02</span>
+                <h3>Building inner support</h3>
+                <p>The Map captures values, energy, action style, relationships, experience, goals, and aliveness.</p>
+              </article>
+              <article class="path-step">
+                <span>03</span>
+                <h3>Help with decisions</h3>
+                <p>When context is missing, the Navigator does not pretend it understands. It asks a question that helps both the situation and the Map.</p>
+              </article>
+              <article class="path-step">
+                <span>04</span>
+                <h3>Ongoing development</h3>
+                <p>The journal keeps important events, conclusions, and shifts so you can see not only what you understood, but how you are changing.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap grid-2">
+            <div>
+              <h2>Building the Map is already part of the effect</h2>
+              <p class="section-lead">
+                This is not a hundred-point form. The questions are simple, but answering them can be hard: you have to remember real choices, people, mistakes, desires, moments of strength, and moments where you lost yourself.
+              </p>
+              <p class="section-lead">
+                You answer in ordinary words. The Navigator uses those answers as anchors, connects them, and carefully pulls out what is not always visible from the inside.
+              </p>
+            </div>
+            <div class="story-panel">
+              <h3>The finished Map moment</h3>
+              <p>
+                When all 9 blocks are complete, the Navigator does not just save a file. It rereads the material, removes duplicates, checks contradictions, marks weak areas, and only then gives the first complete Map version.
+              </p>
+              <p>
+                Reading it can bring a rare feeling: “Yes, this is true about me.” The power is not that AI knows everything. The power is that it helped assemble you into one clear picture.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="details-en">
+          <div class="wrap">
+            <h2>Not an advisor. A navigator.</h2>
+            <p class="section-lead">
+              Generic AI often rushes to answer. Personal Navigator first checks whether it has enough context. If the Map is incomplete, it says so directly: full navigation is not available yet, but the situation can be explored while filling missing blocks.
+            </p>
+            <div class="grid-3">
+              <article class="card">
+                <span class="tag">Map</span>
+                <h3>9 personality blocks</h3>
+                <p>Values, energy, aliveness, models, action, relationships, experience, goals, and quality of life.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Memory</span>
+                <h3>Development journal</h3>
+                <p>The Navigator records meaningful events, insights, decisions, repeated themes, and growth dynamics.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Honesty</span>
+                <h3>Open loops</h3>
+                <p>If data is missing, the agent does not invent. It records hypotheses and gaps for later clarification.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Architecture</h2>
+            <p class="section-lead">
+              The skill is built as a state machine: from no Map to Map building, then full navigation and regular memory updates.
+            </p>
+            <div class="flow" aria-label="Navigator lifecycle">
+              <div class="flow-step"><strong>NO_MAP</strong><span>No usable Map yet</span></div>
+              <div class="flow-step"><strong>MAP_BUILDING</strong><span>Friendly interview</span></div>
+              <div class="flow-step"><strong>MAP_V1_READY</strong><span>9 blocks complete</span></div>
+              <div class="flow-step"><strong>NAVIGATION</strong><span>Full navigation</span></div>
+              <div class="flow-step"><strong>REFLECTION_UPDATE</strong><span>Living updates</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>What the Map Contains</h2>
+            <ol class="map-list">
+              <li>Core of Personality</li>
+              <li>Psycho-Energetic Profile</li>
+              <li>Living Fire Element</li>
+              <li>Psychotype and Scientific Models</li>
+              <li>Way of Action</li>
+              <li>Social Self</li>
+              <li>Experience and Capital</li>
+              <li>Future and Goals</li>
+              <li>Personality Metrics and Quality of Life</li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
+            <h2>Agent Environments</h2>
+            <p class="section-lead">
+              The skill can run in Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes, and can be adapted through AGENTS.md for Cursor, Gemini CLI, Aider, and other environments.
+            </p>
+            <div class="actions">
+              <a class="button" href="installation.en.html">Open install guide</a>
+              <a class="button secondary" href="quickstart.en.html">Quickstart</a>
+              <a class="button secondary" href="installation.html">Русская инструкция</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="author-en">
+          <div class="wrap grid-2">
+            <div>
+              <h2>Author and Community</h2>
+              <p class="section-lead">
+                The project was created by Dmitry Kozyura and began as a personal tool: during a difficult period, I did not need more motivation. I needed to honestly understand what was happening to me, where my energy was going, and how to rebuild myself.
+              </p>
+            </div>
+            <div class="story-panel">
+              <h3>Why I am sharing it</h3>
+              <p>
+                I tested this approach on myself: explored my personality with AI, built a Map, checked insights against reality, and gradually found more inner stability. Personal Navigator was born from that experience.
+              </p>
+              <p>
+                I am releasing it as an open-source skill because I want AI to help people not only work faster, but understand themselves better.
+              </p>
+              <div class="community-note">
+                <h3>Support and participate</h3>
+                <p>
+                  Star the project on GitHub, open an Issue if you find a bug, or share an idea/scenario in Discussions. This helps bring more people in, develop the methodology, and add improvements together with the community.
+                </p>
+              </div>
+              <h3>Author pages</h3>
+              <p><a href="https://instagram.com/dmitry.kozyura">Instagram</a></p>
+              <p><a href="https://t.me/dmitry_kozyura">Telegram</a></p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span>Personal Navigator</span>
+        <span>Personality Map + living memory + honest questions.</span>
+      </div>
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll("[data-lang-button]");
+      const panels = document.querySelectorAll("[data-lang-panel]");
+
+      function setLanguage(language) {
+        document.documentElement.lang = language;
+        const installLink = document.getElementById("installLink");
+        const quickstartLink = document.getElementById("quickstartLink");
+        if (installLink) {
+          installLink.href = language === "en" ? "installation.en.html" : "installation.html";
+          installLink.textContent = language === "en" ? "Install" : "Установка";
+        }
+        if (quickstartLink) {
+          quickstartLink.href = language === "en" ? "quickstart.en.html" : "quickstart.html";
+          quickstartLink.textContent = language === "en" ? "Start" : "Старт";
+        }
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.langButton === language));
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.dataset.langPanel === language);
+        });
+        if (location.hash !== `#${language}`) {
+          history.replaceState(null, "", `#${language}`);
+        }
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+      });
+
+      window.addEventListener("hashchange", () => {
+        const language = location.hash.replace("#", "");
+        if (language === "en" || language === "ru") {
+          setLanguage(language);
+        }
+      });
+
+      const initial = location.hash.replace("#", "");
+      if (initial === "en") {
+        setLanguage("en");
+      }
+    </script>
+  </body>
+</html>

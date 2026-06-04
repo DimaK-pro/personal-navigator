@@ -1,0 +1,4 @@
+interface:
+  display_name: "Personal Navigator"
+  short_description: "Build a living Personality Map through guided self-discovery"
+  default_prompt: "Use $personal-navigator-skill to guide me through a friendly self-discovery interview, build my Personality Map, and navigate from it."

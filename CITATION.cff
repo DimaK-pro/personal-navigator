@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If Personal Navigator helps you, please cite or mention the project so the author can see where it creates value."
+title: "Personal Navigator"
+authors:
+  - family-names: "Kozyura"
+    given-names: "Dmitry"
+license: "MIT"
+date-released: "2026-06-04"

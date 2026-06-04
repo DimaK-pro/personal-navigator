@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Installing Personal Navigator Skill</title>
+    <meta name="description" content="Install Personal Navigator Skill in Codex, Antigravity, Claude Code, and other agent environments.">
+    <style>
+      :root {
+        --bg: #fbfbf8;
+        --panel: #ffffff;
+        --ink: #20201d;
+        --muted: #696a61;
+        --line: #dfded7;
+        --fire: #d96f35;
+        --sea: #315f68;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.65;
+      }
+      a { color: var(--sea); text-underline-offset: 0.18em; }
+      .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; }
+      header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 251, 248, 0.94);
+        position: sticky;
+        top: 0;
+      }
+      .top {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; color: var(--ink); }
+      .brand img { width: 34px; height: 34px; }
+      nav { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
+      main { padding: 56px 0; }
+      h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
+      h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.18; letter-spacing: 0; }
+      h3 { margin: 26px 0 10px; font-size: 18px; }
+      p.lead { color: var(--muted); max-width: 760px; font-size: 19px; margin: 18px 0 0; }
+      .note {
+        margin: 24px 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--fire);
+        background: var(--panel);
+        border-radius: 8px;
+      }
+      pre {
+        overflow-x: auto;
+        background: #20201d;
+        color: #ffffff;
+        padding: 16px;
+        border-radius: 8px;
+        line-height: 1.5;
+      }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+      .card p { color: var(--muted); margin: 0; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 750;
+      }
+      footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
+      @media (max-width: 720px) {
+        .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+        nav { justify-content: flex-start; }
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap top">
+        <a class="brand" href="index.html#en">
+          <img src="assets/logo-ai-navigator.svg" alt="">
+          <span>Personal Navigator</span>
+        </a>
+        <nav aria-label="Navigation">
+          <a href="index.html#en">Landing</a>
+          <a href="quickstart.en.html">Quickstart</a>
+          <a href="installation.html">Русский</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <h1>Installing Personal Navigator Skill</h1>
+      <p class="lead">
+        Personal Navigator works as a portable agent skill: a folder with `SKILL.md`, reference files, and memory templates. Full navigation begins after the 9-block Personality Map is built.
+      </p>
+
+      <div class="note">
+        <strong>Main rule:</strong> the internal skill logic is written in English, but user-facing answers, interviews, the Map, journal, open loops, and ready-to-save memory blocks are created in the user's language.
+      </div>
+
+      <h2>What Gets Installed</h2>
+      <pre><code>personal-navigator-skill/
+  SKILL.md
+  agents/openai.yaml
+  references/
+  templates/</code></pre>
+
+      <h2>Codex</h2>
+      <pre><code>mkdir -p ~/.agents/skills
+cp -R personal-navigator-skill ~/.agents/skills/</code></pre>
+      <p>Restart Codex after installation and start with:</p>
+      <pre><code>Use $personal-navigator-skill.
+I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
+
+      <h2>Cross-Agent Workspace Path</h2>
+      <p>For environments that support the open `SKILL.md` format, use:</p>
+      <pre><code>mkdir -p .agents/skills
+cp -R personal-navigator-skill .agents/skills/</code></pre>
+
+      <div class="grid">
+        <section class="card">
+          <h3>Antigravity</h3>
+          <p>Workspace: `.agents/skills/`. For global CLI installs, check the current Antigravity documentation.</p>
+        </section>
+        <section class="card">
+          <h3>Claude Code</h3>
+          <p>Project: `.claude/skills/`. Personal: `~/.claude/skills/`.</p>
+        </section>
+        <section class="card">
+          <h3>OpenCode</h3>
+          <p>Project: `.opencode/skills/`. Global: `~/.config/opencode/skills/`.</p>
+        </section>
+        <section class="card">
+          <h3>Windsurf / Cascade</h3>
+          <p>Workspace: `.windsurf/skills/`. Global: `~/.codeium/windsurf/skills/`.</p>
+        </section>
+        <section class="card">
+          <h3>GitHub Copilot / VS Code</h3>
+          <p>Project skills can live in `.github/skills/`, `.claude/skills/`, or `.agents/skills/`.</p>
+        </section>
+        <section class="card">
+          <h3>Cursor, Gemini CLI, Aider</h3>
+          <p>Use `AGENTS.md` as a bridge: tell the agent to read `personal-navigator-skill/SKILL.md` and the relevant references.</p>
+        </section>
+      </div>
+
+      <h2>Verify Installation</h2>
+      <pre><code>Use Personal Navigator.
+I do not have a Personality Map yet. Start a friendly interview with me and create memory files if you can.</code></pre>
+      <p>Expected behavior: the agent says full navigation is unavailable without a Map, creates or offers the 4 memory files, asks the first human question, and avoids deep conclusions without data.</p>
+
+      <p><a class="button" href="INSTALLATION.en.md">Open full Markdown guide</a></p>
+      <p><a href="quickstart.en.html">Go to first run</a></p>
+    </main>
+
+    <footer>
+      <div class="wrap">Personal Navigator Skill. Personality Map + living memory + honest questions.</div>
+    </footer>
+  </body>
+</html>

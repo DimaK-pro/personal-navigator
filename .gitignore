@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+# Local private Navigator memory that can be created while using the skill.
+/NAVIGATOR_STATE.md
+/PERSONALITY_MAP.md
+/DEVELOPMENT_JOURNAL.md
+/OPEN_LOOPS.md
+/supplements/
+
+# Local environment and logs.
+.env
+.env.*
+*.log
+node_modules/

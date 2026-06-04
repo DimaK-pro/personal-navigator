@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Быстрый старт Personal Navigator</title>
+    <meta name="description" content="Первый запуск Personal Navigator Skill: что написать агенту, какие файлы памяти появятся и как понять, что skill работает правильно.">
+    <style>
+      :root {
+        --bg: #fbfbf8;
+        --panel: #ffffff;
+        --ink: #20201d;
+        --muted: #696a61;
+        --line: #dfded7;
+        --fire: #d96f35;
+        --sea: #315f68;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.65;
+      }
+      a { color: var(--sea); text-underline-offset: 0.18em; }
+      .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; }
+      header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 251, 248, 0.94);
+        position: sticky;
+        top: 0;
+      }
+      .top {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; color: var(--ink); }
+      .brand img { width: 34px; height: 34px; }
+      nav { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
+      main { padding: 56px 0; }
+      h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
+      h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.18; letter-spacing: 0; }
+      p.lead { color: var(--muted); max-width: 760px; font-size: 19px; margin: 18px 0 0; }
+      pre {
+        overflow-x: auto;
+        background: #20201d;
+        color: #ffffff;
+        padding: 16px;
+        border-radius: 8px;
+        line-height: 1.5;
+      }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      .step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 14px;
+      }
+      .step strong { color: var(--fire); }
+      .note {
+        margin: 24px 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--fire);
+        background: var(--panel);
+        border-radius: 8px;
+      }
+      footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
+      @media (max-width: 720px) {
+        .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+        nav { justify-content: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap top">
+        <a class="brand" href="index.html">
+          <img src="assets/logo-ai-navigator.svg" alt="">
+          <span>Personal Navigator</span>
+        </a>
+        <nav aria-label="Navigation">
+          <a href="index.html">Лендинг</a>
+          <a href="installation.html">Установка</a>
+          <a href="quickstart.en.html">English</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <h1>Быстрый старт</h1>
+      <p class="lead">
+        После установки не нужно знать методологию заранее. Достаточно попросить агента использовать Personal Navigator и начать с Карты личности.
+      </p>
+
+      <h2>1. Начните первый диалог</h2>
+      <pre><code>Use $personal-navigator-skill.
+Хочу начать собирать мою Карту личности. Веди меня через дружеское интервью.</code></pre>
+
+      <div class="step">
+        <strong>Что должен сделать агент:</strong>
+        <p>Объяснить, что без Карты полная персональная навигация пока невозможна, создать или предложить файлы памяти и задать первый живой вопрос.</p>
+      </div>
+
+      <h2>2. Проверьте файлы памяти</h2>
+      <p>В рабочем пространстве пользователя должны появиться:</p>
+      <pre><code>NAVIGATOR_STATE.md
+PERSONALITY_MAP.md
+DEVELOPMENT_JOURNAL.md
+OPEN_LOOPS.md
+supplements/</code></pre>
+      <p>Это личная память пользователя. Она не должна храниться внутри папки `personal-navigator-skill/`.</p>
+
+      <h2>3. Отвечайте обычным языком</h2>
+      <p>Навигатор должен задавать один сильный вопрос за раз. Хороший ответ не обязан быть красивым; он должен быть честным и опираться на реальные ситуации, выборы, последствия и ощущения энергии.</p>
+
+      <h2>4. Если нужна помощь до полной Карты</h2>
+      <pre><code>Use $personal-navigator-skill.
+Карты пока нет, но мне нужно разобраться с текущей ситуацией. Дай ограниченную навигацию и задай недостающие вопросы.</code></pre>
+      <p>Правильное поведение: агент помогает, но честно говорит, что ответ предварительный, потому что 9 блоков Карты ещё не собраны.</p>
+
+      <h2>5. Когда Карта V1 готова</h2>
+      <p>Агент должен пройти все 9 блоков, сделать integration pass, убрать повторы, вынести неопределённость в `OPEN_LOOPS.md` и только потом объявить первую полную Карту готовой.</p>
+
+      <div class="note">
+        Все ответы, вопросы, Карта, журнал и open loops должны быть на языке пользователя. Английские reference-файлы — это внутреннее ядро, не пользовательский интерфейс.
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">Personal Navigator Skill. Start with the Map, then navigate from it.</div>
+    </footer>
+  </body>
+</html>

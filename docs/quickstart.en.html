@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Personal Navigator Quickstart</title>
+    <meta name="description" content="First run of Personal Navigator Skill: what to ask, which memory files appear, and how to know the skill is working correctly.">
+    <style>
+      :root {
+        --bg: #fbfbf8;
+        --panel: #ffffff;
+        --ink: #20201d;
+        --muted: #696a61;
+        --line: #dfded7;
+        --fire: #d96f35;
+        --sea: #315f68;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.65;
+      }
+      a { color: var(--sea); text-underline-offset: 0.18em; }
+      .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; }
+      header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 251, 248, 0.94);
+        position: sticky;
+        top: 0;
+      }
+      .top {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; color: var(--ink); }
+      .brand img { width: 34px; height: 34px; }
+      nav { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
+      main { padding: 56px 0; }
+      h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
+      h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.18; letter-spacing: 0; }
+      p.lead { color: var(--muted); max-width: 760px; font-size: 19px; margin: 18px 0 0; }
+      pre {
+        overflow-x: auto;
+        background: #20201d;
+        color: #ffffff;
+        padding: 16px;
+        border-radius: 8px;
+        line-height: 1.5;
+      }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      .step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 14px;
+      }
+      .step strong { color: var(--fire); }
+      .note {
+        margin: 24px 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--fire);
+        background: var(--panel);
+        border-radius: 8px;
+      }
+      footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
+      @media (max-width: 720px) {
+        .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
+        nav { justify-content: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap top">
+        <a class="brand" href="index.html#en">
+          <img src="assets/logo-ai-navigator.svg" alt="">
+          <span>Personal Navigator</span>
+        </a>
+        <nav aria-label="Navigation">
+          <a href="index.html#en">Landing</a>
+          <a href="installation.en.html">Install</a>
+          <a href="quickstart.html">Русский</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <h1>Quickstart</h1>
+      <p class="lead">
+        After installation, you do not need to understand the whole methodology first. Ask the agent to use Personal Navigator and start with the Personality Map.
+      </p>
+
+      <h2>1. Start the first conversation</h2>
+      <pre><code>Use $personal-navigator-skill.
+I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
+
+      <div class="step">
+        <strong>Expected agent behavior:</strong>
+        <p>It explains that full personal navigation is unavailable without a Map, creates or offers memory files, and asks the first grounded human question.</p>
+      </div>
+
+      <h2>2. Check memory files</h2>
+      <p>The user's workspace should contain:</p>
+      <pre><code>NAVIGATOR_STATE.md
+PERSONALITY_MAP.md
+DEVELOPMENT_JOURNAL.md
+OPEN_LOOPS.md
+supplements/</code></pre>
+      <p>This is private user memory. It should not be stored inside `personal-navigator-skill/`.</p>
+
+      <h2>3. Answer in ordinary language</h2>
+      <p>The Navigator should ask one strong question at a time. A good answer does not need to sound polished; it should be honest and grounded in real situations, choices, consequences, and energy.</p>
+
+      <h2>4. If help is needed before the full Map</h2>
+      <pre><code>Use $personal-navigator-skill.
+I do not have a Map yet, but I need to understand my current situation. Give limited navigation and ask the missing questions.</code></pre>
+      <p>Correct behavior: the agent helps, but clearly says the answer is provisional because the 9 Map blocks are not complete yet.</p>
+
+      <h2>5. When Map V1 is ready</h2>
+      <p>The agent should complete all 9 blocks, run an integration pass, remove duplicates, move uncertainty into `OPEN_LOOPS.md`, and only then announce the first full Map version.</p>
+
+      <div class="note">
+        Answers, questions, the Map, journal, and open loops should be in the user's language. English reference files are the internal core, not the user interface.
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">Personal Navigator Skill. Start with the Map, then navigate from it.</div>
+    </footer>
+  </body>
+</html>
