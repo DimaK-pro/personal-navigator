@@ -4,6 +4,14 @@
 
 # Personal Navigator
 
+<p align="center">
+  <a href="https://dimak-pro.github.io/personal-navigator/#en"><img alt="Landing" src="https://img.shields.io/badge/Landing-GitHub%20Pages-315f68?style=for-the-badge"></a>
+  <a href="docs/INSTALLATION.en.md"><img alt="Install" src="https://img.shields.io/badge/Install-Skill-d96f35?style=for-the-badge"></a>
+  <a href="docs/QUICKSTART.en.md"><img alt="How to work" src="https://img.shields.io/badge/How%20to%20work-After%20install-55715b?style=for-the-badge"></a>
+  <a href="README.md"><img alt="Русский" src="https://img.shields.io/badge/Русский-README-20201d?style=for-the-badge"></a>
+</p>
+
+
 **Personal Navigator** is an open-source personal AI navigation system packaged as a skill. It first helps a person understand themselves more deeply, then uses that understanding to give more honest and relevant answers.
 
 A regular AI assistant can quickly give advice, a plan, or a motivational line. But if it does not know the person — their values, energy, fears, desires, experience, and current life stage — its answer often stays too generic. Personal Navigator works differently: it helps build a living Personality Map, keeps long-term development memory, and then uses that context for decisions, reflection, goals, states, and difficult life questions.
@@ -12,9 +20,18 @@ I call the main orientation of this system **inner Fire** or **Living Fire**. Th
 
 This is not another productivity bot or a set of motivational prompts. Personal Navigator does not try to make a person merely more efficient. It helps the person become clearer, freer, more alive, and more aligned with their own nature.
 
-[Русский](README.md) · [How to work](docs/QUICKSTART.en.md) · [Installation Guide](docs/INSTALLATION.en.md) · [GitHub Pages version](docs/index.html)
+[Русский](README.md) · [Landing](https://dimak-pro.github.io/personal-navigator/#en) · [Install](docs/INSTALLATION.en.md) · [How to work after installation](docs/QUICKSTART.en.md) · [Skill package](personal-navigator-skill/)
 
 Recommended GitHub repository name: `personal-navigator`. The installable skill package inside the repository is `personal-navigator-skill/`.
+
+## New User Route
+
+1. Open the [Personal Navigator landing page](https://dimak-pro.github.io/personal-navigator/#en) to understand the idea and user journey.
+2. Go to the [installation guide](docs/INSTALLATION.en.md) and copy the commands for your agent environment.
+3. After installation, open [how to work after installation](docs/QUICKSTART.en.md): it has the first prompt and memory-file checks.
+4. If you already understand agent skills, use [`personal-navigator-skill/`](personal-navigator-skill/) directly.
+
+If you open `docs/index.html` inside GitHub, GitHub will show the page source. The rendered Pages version is here: [https://dimak-pro.github.io/personal-navigator/](https://dimak-pro.github.io/personal-navigator/#en).
 
 ## Why It Exists
 

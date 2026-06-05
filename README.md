@@ -4,6 +4,14 @@
 
 # Personal Navigator
 
+<p align="center">
+  <a href="https://dimak-pro.github.io/personal-navigator/"><img alt="Landing" src="https://img.shields.io/badge/Landing-GitHub%20Pages-315f68?style=for-the-badge"></a>
+  <a href="docs/INSTALLATION.md"><img alt="Install" src="https://img.shields.io/badge/Install-Skill-d96f35?style=for-the-badge"></a>
+  <a href="docs/QUICKSTART.md"><img alt="How to work" src="https://img.shields.io/badge/How%20to%20work-After%20install-55715b?style=for-the-badge"></a>
+  <a href="README.en.md"><img alt="English" src="https://img.shields.io/badge/English-README-20201d?style=for-the-badge"></a>
+</p>
+
+
 **Personal Navigator** — это персональный AI-навигатор, который сначала помогает человеку лучше понять себя, а потом использует это понимание для более честных и точных ответов.
 
 Обычный AI может быстро дать совет, план или мотивационную фразу. Но если он не знает человека, его ценности, энергию, страхи, желания, опыт и текущий жизненный этап, такой ответ часто остаётся слишком общим. Personal Navigator работает иначе: он помогает собрать Карту личности, ведёт живую память развития и только потом начинает опираться на неё в решениях, рефлексии, целях, состояниях и сложных жизненных вопросах.
@@ -12,9 +20,18 @@
 
 Это не ещё один productivity-бот и не набор мотивационных промптов. Навигатор не пытается делать человека просто эффективнее. Он помогает человеку становиться яснее, свободнее, живее и ближе к собственной природе.
 
-[English](README.en.md) · [Как работать](docs/QUICKSTART.md) · [Инструкция установки](docs/INSTALLATION.md) · [GitHub Pages версия](docs/index.html)
+[English](README.en.md) · [Лендинг](https://dimak-pro.github.io/personal-navigator/) · [Установить](docs/INSTALLATION.md) · [Как работать после установки](docs/QUICKSTART.md) · [Skill package](personal-navigator-skill/)
 
 Рекомендуемое имя GitHub-репозитория: `personal-navigator`. Устанавливаемый skill-пакет внутри репозитория называется `personal-navigator-skill/`.
+
+## Маршрут для нового пользователя
+
+1. Откройте [лендинг Personal Navigator](https://dimak-pro.github.io/personal-navigator/), чтобы понять идею и пользовательский путь.
+2. Перейдите в [инструкцию установки](docs/INSTALLATION.md) и скопируйте команды для своей агентной среды.
+3. После установки откройте [как работать после установки](docs/QUICKSTART.md): там есть первый запрос агенту и проверка файлов памяти.
+4. Если вы уже понимаете agent skills, используйте папку [`personal-navigator-skill/`](personal-navigator-skill/) напрямую.
+
+Если вы открыли ссылку `docs/index.html` внутри GitHub, это будет код страницы. Красивая Pages-версия находится здесь: [https://dimak-pro.github.io/personal-navigator/](https://dimak-pro.github.io/personal-navigator/).
 
 ## Зачем это нужно
 

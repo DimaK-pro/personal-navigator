@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Как работать с Personal Navigator</title>
-    <meta name="description" content="Что делать после установки Personal Navigator Skill: что написать агенту, какие файлы памяти появятся и как понять, что skill работает правильно.">
+    <title>Как работать после установки Personal Navigator</title>
+    <meta name="description" content="Что делать после установки Personal Navigator Skill: первый запрос, файлы памяти, ограниченная навигация и Карта V1.">
     <style>
       :root {
         --bg: #fbfbf8;
@@ -14,6 +14,7 @@
         --line: #dfded7;
         --fire: #d96f35;
         --sea: #315f68;
+        --moss: #55715b;
       }
       * { box-sizing: border-box; }
       body {
@@ -24,12 +25,13 @@
         line-height: 1.65;
       }
       a { color: var(--sea); text-underline-offset: 0.18em; }
-      .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; }
+      .wrap { width: min(980px, calc(100% - 32px)); margin: 0 auto; }
       header {
         border-bottom: 1px solid var(--line);
         background: rgba(251, 251, 248, 0.94);
         position: sticky;
         top: 0;
+        z-index: 5;
       }
       .top {
         min-height: 64px;
@@ -44,8 +46,71 @@
       nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
       main { padding: 56px 0; }
       h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
-      h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.18; letter-spacing: 0; }
-      p.lead { color: var(--muted); max-width: 760px; font-size: 19px; margin: 18px 0 0; }
+      h2 { margin: 44px 0 14px; font-size: 27px; line-height: 1.18; letter-spacing: 0; }
+      h3 { margin: 0 0 8px; font-size: 18px; }
+      p.lead { color: var(--muted); max-width: 800px; font-size: 19px; margin: 18px 0 0; }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0 0; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        background: var(--ink);
+        border: 1px solid var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 750;
+      }
+      .button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+      .note {
+        margin: 24px 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--fire);
+        background: var(--panel);
+        border-radius: 8px;
+      }
+      .path {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin: 28px 0 0;
+      }
+      .path-step, .card, .step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+      }
+      .path-step span {
+        color: var(--fire);
+        font-size: 13px;
+        font-weight: 850;
+      }
+      .path-step p, .card p, .step p { color: var(--muted); margin: 8px 0 0; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .code-copy { position: relative; margin: 16px 0; }
+      .code-copy pre { margin: 0; padding-top: 48px; }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        min-height: 30px;
+        padding: 0 10px;
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 7px;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+      }
       pre {
         overflow-x: auto;
         background: #20201d;
@@ -55,27 +120,14 @@
         line-height: 1.5;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-      .step {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 14px;
-      }
-      .step strong { color: var(--fire); }
-      .note {
-        margin: 24px 0;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-left: 4px solid var(--fire);
-        background: var(--panel);
-        border-radius: 8px;
-      }
+      .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
-      @media (max-width: 720px) {
+      @media (max-width: 820px) {
         .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
         nav { justify-content: flex-start; }
+        .grid, .path { grid-template-columns: 1fr; }
       }
+
     </style>
   </head>
   <body>
@@ -87,35 +139,40 @@
         </a>
         <nav aria-label="Navigation">
           <a href="index.html">Лендинг</a>
-          <a href="installation.html">Установка</a>
+          <a href="quickstart.html">Как работать</a>
+          <a href="https://github.com/DimaK-pro/personal-navigator">GitHub</a>
           <a href="quickstart.en.html">English</a>
         </nav>
       </div>
     </header>
 
     <main class="wrap">
-      <h1>Как работать</h1>
+      <h1>Как работать после установки</h1>
       <p class="lead">
-        После установки не нужно знать методологию заранее. Достаточно попросить агента использовать Personal Navigator и начать с Карты личности.
+        Эта страница отвечает на вопрос: “skill уже установлен, что писать агенту и что должно происходить дальше?”. Personal Navigator начинается не с советов, а с Карты личности.
       </p>
+      <div class="actions">
+        <a class="button" href="installation.html">Установить skill</a>
+        <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">Открыть GitHub</a>
+        <a class="button secondary" href="quickstart.en.html">English</a>
+      </div>
 
       <h2>1. Начните первый диалог</h2>
       <pre><code>Use $personal-navigator-skill.
 Хочу начать собирать мою Карту личности. Веди меня через дружеское интервью.</code></pre>
-
       <div class="step">
         <strong>Что должен сделать агент:</strong>
         <p>Объяснить, что без Карты полная персональная навигация пока невозможна, создать или предложить файлы памяти и задать первый живой вопрос.</p>
       </div>
 
-      <h2>2. Проверьте файлы памяти</h2>
-      <p>В рабочем пространстве пользователя должны появиться:</p>
+      <h2>2. Проверьте, где создаётся память</h2>
+      <p>В вашем рабочем пространстве или выбранной папке памяти должны появиться:</p>
       <pre><code>NAVIGATOR_STATE.md
 PERSONALITY_MAP.md
 DEVELOPMENT_JOURNAL.md
 OPEN_LOOPS.md
 supplements/</code></pre>
-      <p>Это личная память пользователя. Она не должна храниться внутри папки `personal-navigator-skill/`.</p>
+      <p>Это личная память пользователя. Она не должна храниться внутри <code>personal-navigator-skill/</code>, потому что сама папка skill является установочным пакетом.</p>
 
       <h2>3. Отвечайте обычным языком</h2>
       <p>Навигатор должен задавать один сильный вопрос за раз. Хороший ответ не обязан быть красивым; он должен быть честным и опираться на реальные ситуации, выборы, последствия и ощущения энергии.</p>
@@ -125,16 +182,46 @@ supplements/</code></pre>
 Карты пока нет, но мне нужно разобраться с текущей ситуацией. Дай ограниченную навигацию и задай недостающие вопросы.</code></pre>
       <p>Правильное поведение: агент помогает, но честно говорит, что ответ предварительный, потому что 9 блоков Карты ещё не собраны.</p>
 
-      <h2>5. Когда Карта V1 готова</h2>
-      <p>Агент должен пройти все 9 блоков, сделать integration pass, убрать повторы, вынести неопределённость в `OPEN_LOOPS.md` и только потом объявить первую полную Карту готовой.</p>
+      <h2>5. Если файлы нельзя записывать автоматически</h2>
+      <pre><code>Use $personal-navigator-skill.
+Показывай мне готовые локализованные блоки для файлов памяти, а я буду сохранять их вручную. Начни с NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md и OPEN_LOOPS.md.</code></pre>
+
+      <h2>6. Когда Карта V1 готова</h2>
+      <p>Агент должен пройти все 9 блоков, сделать final integration pass, убрать повторы, вынести неопределённость в <code>OPEN_LOOPS.md</code> и только потом объявить первую полную Карту готовой.</p>
 
       <div class="note">
         Все ответы, вопросы, Карта, журнал и open loops должны быть на языке пользователя. Английские reference-файлы — это внутреннее ядро, не пользовательский интерфейс.
       </div>
+
     </main>
 
     <footer>
       <div class="wrap">Personal Navigator Skill. Сначала Карта, потом навигация.</div>
     </footer>
+
+    <script>
+      document.querySelectorAll("pre").forEach((pre) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-copy";
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "copy-button";
+        button.textContent = "Скопировать";
+        button.addEventListener("click", async () => {
+          const text = pre.innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Скопировано";
+            setTimeout(() => { button.textContent = "Скопировать"; }, 1600);
+          } catch (error) {
+            button.textContent = "Выделите текст";
+            setTimeout(() => { button.textContent = "Скопировать"; }, 1800);
+          }
+        });
+        wrapper.appendChild(button);
+      });
+    </script>
   </body>
 </html>

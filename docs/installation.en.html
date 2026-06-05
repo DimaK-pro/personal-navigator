@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Installing Personal Navigator Skill</title>
-    <meta name="description" content="Install Personal Navigator Skill in Codex, Antigravity, Claude Code, and other agent environments.">
+    <meta name="description" content="Step-by-step installation for Personal Navigator Skill in Codex, Antigravity, Claude Code, VS Code, OpenCode, and other agent environments.">
     <style>
       :root {
         --bg: #fbfbf8;
@@ -14,6 +14,7 @@
         --line: #dfded7;
         --fire: #d96f35;
         --sea: #315f68;
+        --moss: #55715b;
       }
       * { box-sizing: border-box; }
       body {
@@ -24,12 +25,13 @@
         line-height: 1.65;
       }
       a { color: var(--sea); text-underline-offset: 0.18em; }
-      .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; }
+      .wrap { width: min(980px, calc(100% - 32px)); margin: 0 auto; }
       header {
         border-bottom: 1px solid var(--line);
         background: rgba(251, 251, 248, 0.94);
         position: sticky;
         top: 0;
+        z-index: 5;
       }
       .top {
         min-height: 64px;
@@ -44,9 +46,24 @@
       nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
       main { padding: 56px 0; }
       h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
-      h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.18; letter-spacing: 0; }
-      h3 { margin: 26px 0 10px; font-size: 18px; }
-      p.lead { color: var(--muted); max-width: 760px; font-size: 19px; margin: 18px 0 0; }
+      h2 { margin: 44px 0 14px; font-size: 27px; line-height: 1.18; letter-spacing: 0; }
+      h3 { margin: 0 0 8px; font-size: 18px; }
+      p.lead { color: var(--muted); max-width: 800px; font-size: 19px; margin: 18px 0 0; }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0 0; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        background: var(--ink);
+        border: 1px solid var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 750;
+      }
+      .button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
       .note {
         margin: 24px 0;
         padding: 18px;
@@ -54,6 +71,45 @@
         border-left: 4px solid var(--fire);
         background: var(--panel);
         border-radius: 8px;
+      }
+      .path {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin: 28px 0 0;
+      }
+      .path-step, .card, .step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+      }
+      .path-step span {
+        color: var(--fire);
+        font-size: 13px;
+        font-weight: 850;
+      }
+      .path-step p, .card p, .step p { color: var(--muted); margin: 8px 0 0; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .code-copy { position: relative; margin: 16px 0; }
+      .code-copy pre { margin: 0; padding-top: 48px; }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        min-height: 30px;
+        padding: 0 10px;
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 7px;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
       }
       pre {
         overflow-x: auto;
@@ -64,36 +120,14 @@
         line-height: 1.5;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-      .card {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 20px;
-      }
-      .card p { color: var(--muted); margin: 0; }
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 42px;
-        padding: 0 18px;
-        border-radius: 8px;
-        background: var(--ink);
-        color: #fff;
-        text-decoration: none;
-        font-weight: 750;
-      }
+      .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
-      @media (max-width: 720px) {
+      @media (max-width: 820px) {
         .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
         nav { justify-content: flex-start; }
-        .grid { grid-template-columns: 1fr; }
+        .grid, .path { grid-template-columns: 1fr; }
       }
+
     </style>
   </head>
   <body>
@@ -106,6 +140,7 @@
         <nav aria-label="Navigation">
           <a href="index.html#en">Landing</a>
           <a href="quickstart.en.html">How to work</a>
+          <a href="https://github.com/DimaK-pro/personal-navigator">GitHub</a>
           <a href="installation.html">Русский</a>
         </nav>
       </div>
@@ -114,70 +149,135 @@
     <main class="wrap">
       <h1>Installing Personal Navigator Skill</h1>
       <p class="lead">
-        Personal Navigator works as a portable agent skill: a folder with `SKILL.md`, reference files, and memory templates. Full navigation begins after the 9-block Personality Map is built.
+        If you are not familiar with GitHub or agent skills, start here. You need to get the project folder, copy <code>personal-navigator-skill/</code> into the skills location used by your agent environment, restart the agent, and begin the first conversation.
       </p>
-
-      <div class="note">
-        <strong>Main rule:</strong> the internal skill logic is written in English, but user-facing answers, interviews, the Map, journal, open loops, and ready-to-save memory blocks are created in the user's language.
+      <div class="actions">
+        <a class="button" href="https://github.com/DimaK-pro/personal-navigator">Open repository</a>
+        <a class="button secondary" href="quickstart.en.html">What to do after installation</a>
+        <a class="button secondary" href="installation.html">Русская инструкция</a>
       </div>
 
-      <h2>What Gets Installed</h2>
-      <pre><code>personal-navigator-skill/
-  SKILL.md
-  agents/openai.yaml
-  references/
-  templates/</code></pre>
+      <div class="note">
+        <strong>Important:</strong> run the commands below from the root of the downloaded <code>personal-navigator</code> repository. Private user memory files should be created in your active workspace, not inside <code>personal-navigator-skill/</code>.
+      </div>
 
-      <h2>Codex</h2>
-      <pre><code>mkdir -p ~/.agents/skills
-cp -R personal-navigator-skill ~/.agents/skills/</code></pre>
-      <p>Restart Codex after installation and start with:</p>
-      <pre><code>Use $personal-navigator-skill.
-I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
+      <div class="path" aria-label="Installation path">
+        <div class="path-step"><span>01</span><h3>Download</h3><p>Get the repository through Git or Download ZIP.</p></div>
+        <div class="path-step"><span>02</span><h3>Copy the skill</h3><p>Move <code>personal-navigator-skill/</code> into your environment's skills folder.</p></div>
+        <div class="path-step"><span>03</span><h3>Restart</h3><p>Restart the agent so it discovers the new skill.</p></div>
+        <div class="path-step"><span>04</span><h3>Start the Map</h3><p>Ask the agent to guide a friendly interview.</p></div>
+      </div>
 
-      <h2>Cross-Agent Workspace Path</h2>
-      <p>For environments that support the open `SKILL.md` format, use:</p>
-      <pre><code>mkdir -p .agents/skills
-cp -R personal-navigator-skill .agents/skills/</code></pre>
+      <h2>1. Get the project</h2>
+      <p>If Git is installed, use:</p>
+      <pre><code>git clone https://github.com/DimaK-pro/personal-navigator.git
+cd personal-navigator</code></pre>
+      <p>If Git is not installed: open the repository, click <strong>Code</strong>, choose <strong>Download ZIP</strong>, unzip it, and open the <code>personal-navigator</code> folder in your agent environment.</p>
 
+      <h2>2. Choose your environment</h2>
       <div class="grid">
         <section class="card">
+          <h3>Codex</h3>
+          <p>Personal install across projects.</p>
+          <pre><code>mkdir -p ~/.agents/skills
+cp -R personal-navigator-skill ~/.agents/skills/</code></pre>
+        </section>
+        <section class="card">
           <h3>Antigravity</h3>
-          <p>Workspace: `.agents/skills/`. For global CLI installs, check the current Antigravity documentation.</p>
+          <p>Workspace install inside the current project.</p>
+          <pre><code>mkdir -p .agents/skills
+cp -R personal-navigator-skill .agents/skills/</code></pre>
         </section>
         <section class="card">
           <h3>Claude Code</h3>
-          <p>Project: `.claude/skills/`. Personal: `~/.claude/skills/`.</p>
+          <p>Personal install.</p>
+          <pre><code>mkdir -p ~/.claude/skills
+cp -R personal-navigator-skill ~/.claude/skills/</code></pre>
+        </section>
+        <section class="card">
+          <h3>Claude Code project</h3>
+          <p>Install only for the current project.</p>
+          <pre><code>mkdir -p .claude/skills
+cp -R personal-navigator-skill .claude/skills/</code></pre>
         </section>
         <section class="card">
           <h3>OpenCode</h3>
-          <p>Project: `.opencode/skills/`. Global: `~/.config/opencode/skills/`.</p>
+          <p>Project skill.</p>
+          <pre><code>mkdir -p .opencode/skills
+cp -R personal-navigator-skill .opencode/skills/</code></pre>
         </section>
         <section class="card">
           <h3>Windsurf / Cascade</h3>
-          <p>Workspace: `.windsurf/skills/`. Global: `~/.codeium/windsurf/skills/`.</p>
+          <p>Workspace skill.</p>
+          <pre><code>mkdir -p .windsurf/skills
+cp -R personal-navigator-skill .windsurf/skills/</code></pre>
         </section>
         <section class="card">
           <h3>GitHub Copilot / VS Code</h3>
-          <p>Project skills can live in `.github/skills/`, `.claude/skills/`, or `.agents/skills/`.</p>
+          <p>Project skill for the repository.</p>
+          <pre><code>mkdir -p .github/skills
+cp -R personal-navigator-skill .github/skills/</code></pre>
         </section>
         <section class="card">
           <h3>Cursor, Gemini CLI, Aider</h3>
-          <p>Use `AGENTS.md` as a bridge: tell the agent to read `personal-navigator-skill/SKILL.md` and the relevant references.</p>
+          <p>Use <code>AGENTS.md</code> as a bridge and ask the agent to read the skill from this repository.</p>
+          <pre><code>Read AGENTS.md and use Personal Navigator.
+Start with personal-navigator-skill/SKILL.md and guide me through the Personality Map.</code></pre>
         </section>
       </div>
 
-      <h2>Verify Installation</h2>
+      <h2>3. Restart the agent</h2>
+      <p>After copying the folder, close and reopen Codex, Antigravity, Claude Code, or your chosen environment. This lets the agent rescan available skills.</p>
+
+      <h2>4. First prompt after installation</h2>
+      <pre><code>Use $personal-navigator-skill.
+I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
+      <p>Expected behavior: the agent explains that full navigation begins only after the Map, creates or offers memory files, and asks the first grounded human question.</p>
+
+      <h2>5. If the agent cannot write files</h2>
+      <pre><code>Use $personal-navigator-skill.
+You cannot write files automatically. Show me ready-to-save English text for NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md so I can save them manually.</code></pre>
+
+      <h2>6. Verify installation</h2>
       <pre><code>Use Personal Navigator.
 I do not have a Personality Map yet. Start a friendly interview with me and create memory files if you can.</code></pre>
-      <p>Expected behavior: the agent says full navigation is unavailable without a Map, creates or offers the 4 memory files, asks the first human question, and avoids deep conclusions without data.</p>
+      <p>If it works, the agent will not make deep conclusions without data, will mark the limitation before a full Map exists, and will start building the 9 blocks through a calm interview.</p>
 
-      <p><a class="button" href="INSTALLATION.en.md">Open full Markdown guide</a></p>
-      <p><a href="quickstart.en.html">What to do after installation</a></p>
+      <div class="actions">
+        <a class="button" href="quickstart.en.html">How to work after installation</a>
+        <a class="button secondary" href="INSTALLATION.en.md">Full Markdown guide</a>
+        <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">GitHub repository</a>
+      </div>
+
     </main>
 
     <footer>
-      <div class="wrap">Personal Navigator Skill. Personality Map + living memory + honest questions.</div>
+      <div class="wrap">Personal Navigator Skill. Install the skill, then start with the Personality Map.</div>
     </footer>
+
+    <script>
+      document.querySelectorAll("pre").forEach((pre) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-copy";
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "copy-button";
+        button.textContent = "Copy";
+        button.addEventListener("click", async () => {
+          const text = pre.innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Copied";
+            setTimeout(() => { button.textContent = "Copy"; }, 1600);
+          } catch (error) {
+            button.textContent = "Select text";
+            setTimeout(() => { button.textContent = "Copy"; }, 1800);
+          }
+        });
+        wrapper.appendChild(button);
+      });
+    </script>
   </body>
 </html>

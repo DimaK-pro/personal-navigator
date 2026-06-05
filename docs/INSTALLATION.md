@@ -30,6 +30,20 @@ personal-navigator-skill/
 
 После установки перейдите к разделу [Как работать](QUICKSTART.md).
 
+## Если вы впервые на GitHub
+
+1. Откройте репозиторий: https://github.com/DimaK-pro/personal-navigator
+2. Нажмите **Code**.
+3. Если Git установлен, используйте команды:
+
+```bash
+git clone https://github.com/DimaK-pro/personal-navigator.git
+cd personal-navigator
+```
+
+4. Если Git не установлен, выберите **Download ZIP**, распакуйте архив и откройте папку `personal-navigator` в своей агентной среде.
+5. Все команды ниже запускайте из корня папки `personal-navigator`, где лежит `personal-navigator-skill/`.
+
 ## Рекомендуемый универсальный путь
 
 Для сред, поддерживающих открытый формат `SKILL.md`, самый переносимый вариант — положить skill в `.agents/skills/` внутри проекта:

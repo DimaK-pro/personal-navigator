@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How to Work with Personal Navigator</title>
-    <meta name="description" content="What to do after installing Personal Navigator Skill: what to ask, which memory files appear, and how to know the skill is working correctly.">
+    <title>How to Work After Installing Personal Navigator</title>
+    <meta name="description" content="What to do after installing Personal Navigator Skill: first prompt, memory files, limited navigation, and Map V1.">
     <style>
       :root {
         --bg: #fbfbf8;
@@ -14,6 +14,7 @@
         --line: #dfded7;
         --fire: #d96f35;
         --sea: #315f68;
+        --moss: #55715b;
       }
       * { box-sizing: border-box; }
       body {
@@ -24,12 +25,13 @@
         line-height: 1.65;
       }
       a { color: var(--sea); text-underline-offset: 0.18em; }
-      .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; }
+      .wrap { width: min(980px, calc(100% - 32px)); margin: 0 auto; }
       header {
         border-bottom: 1px solid var(--line);
         background: rgba(251, 251, 248, 0.94);
         position: sticky;
         top: 0;
+        z-index: 5;
       }
       .top {
         min-height: 64px;
@@ -44,8 +46,71 @@
       nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
       main { padding: 56px 0; }
       h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
-      h2 { margin: 42px 0 14px; font-size: 26px; line-height: 1.18; letter-spacing: 0; }
-      p.lead { color: var(--muted); max-width: 760px; font-size: 19px; margin: 18px 0 0; }
+      h2 { margin: 44px 0 14px; font-size: 27px; line-height: 1.18; letter-spacing: 0; }
+      h3 { margin: 0 0 8px; font-size: 18px; }
+      p.lead { color: var(--muted); max-width: 800px; font-size: 19px; margin: 18px 0 0; }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0 0; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        background: var(--ink);
+        border: 1px solid var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 750;
+      }
+      .button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+      .note {
+        margin: 24px 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--fire);
+        background: var(--panel);
+        border-radius: 8px;
+      }
+      .path {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin: 28px 0 0;
+      }
+      .path-step, .card, .step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+      }
+      .path-step span {
+        color: var(--fire);
+        font-size: 13px;
+        font-weight: 850;
+      }
+      .path-step p, .card p, .step p { color: var(--muted); margin: 8px 0 0; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .code-copy { position: relative; margin: 16px 0; }
+      .code-copy pre { margin: 0; padding-top: 48px; }
+      .copy-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        min-height: 30px;
+        padding: 0 10px;
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 7px;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+      }
       pre {
         overflow-x: auto;
         background: #20201d;
@@ -55,27 +120,14 @@
         line-height: 1.5;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-      .step {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 14px;
-      }
-      .step strong { color: var(--fire); }
-      .note {
-        margin: 24px 0;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-left: 4px solid var(--fire);
-        background: var(--panel);
-        border-radius: 8px;
-      }
+      .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
-      @media (max-width: 720px) {
+      @media (max-width: 820px) {
         .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
         nav { justify-content: flex-start; }
+        .grid, .path { grid-template-columns: 1fr; }
       }
+
     </style>
   </head>
   <body>
@@ -87,35 +139,40 @@
         </a>
         <nav aria-label="Navigation">
           <a href="index.html#en">Landing</a>
-          <a href="installation.en.html">Install</a>
+          <a href="quickstart.en.html">How to work</a>
+          <a href="https://github.com/DimaK-pro/personal-navigator">GitHub</a>
           <a href="quickstart.html">Русский</a>
         </nav>
       </div>
     </header>
 
     <main class="wrap">
-      <h1>How to work</h1>
+      <h1>How to work after installation</h1>
       <p class="lead">
-        After installation, you do not need to understand the whole methodology first. Ask the agent to use Personal Navigator and start with the Personality Map.
+        This page answers the practical question: “the skill is installed, what do I ask the agent and what should happen next?” Personal Navigator starts with the Personality Map, not with advice.
       </p>
+      <div class="actions">
+        <a class="button" href="installation.en.html">Install the skill</a>
+        <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">Open GitHub</a>
+        <a class="button secondary" href="quickstart.html">Русский</a>
+      </div>
 
       <h2>1. Start the first conversation</h2>
       <pre><code>Use $personal-navigator-skill.
 I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
-
       <div class="step">
         <strong>Expected agent behavior:</strong>
         <p>It explains that full personal navigation is unavailable without a Map, creates or offers memory files, and asks the first grounded human question.</p>
       </div>
 
-      <h2>2. Check memory files</h2>
-      <p>The user's workspace should contain:</p>
+      <h2>2. Check where memory is created</h2>
+      <p>Your active workspace or chosen memory folder should contain:</p>
       <pre><code>NAVIGATOR_STATE.md
 PERSONALITY_MAP.md
 DEVELOPMENT_JOURNAL.md
 OPEN_LOOPS.md
 supplements/</code></pre>
-      <p>This is private user memory. It should not be stored inside `personal-navigator-skill/`.</p>
+      <p>This is private user memory. It should not be stored inside <code>personal-navigator-skill/</code>, because the skill folder is the installable package.</p>
 
       <h2>3. Answer in ordinary language</h2>
       <p>The Navigator should ask one strong question at a time. A good answer does not need to sound polished; it should be honest and grounded in real situations, choices, consequences, and energy.</p>
@@ -125,16 +182,46 @@ supplements/</code></pre>
 I do not have a Map yet, but I need to understand my current situation. Give limited navigation and ask the missing questions.</code></pre>
       <p>Correct behavior: the agent helps, but clearly says the answer is provisional because the 9 Map blocks are not complete yet.</p>
 
-      <h2>5. When Map V1 is ready</h2>
-      <p>The agent should complete all 9 blocks, run an integration pass, remove duplicates, move uncertainty into `OPEN_LOOPS.md`, and only then announce the first full Map version.</p>
+      <h2>5. If files cannot be written automatically</h2>
+      <pre><code>Use $personal-navigator-skill.
+Show me ready-to-save localized memory blocks, and I will save them manually. Start with NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md.</code></pre>
+
+      <h2>6. When Map V1 is ready</h2>
+      <p>The agent should complete all 9 blocks, run a final integration pass, remove duplicates, move uncertainty into <code>OPEN_LOOPS.md</code>, and only then announce the first full Map version.</p>
 
       <div class="note">
         Answers, questions, the Map, journal, and open loops should be in the user's language. English reference files are the internal core, not the user interface.
       </div>
+
     </main>
 
     <footer>
       <div class="wrap">Personal Navigator Skill. Start with the Map, then navigate from it.</div>
     </footer>
+
+    <script>
+      document.querySelectorAll("pre").forEach((pre) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-copy";
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "copy-button";
+        button.textContent = "Copy";
+        button.addEventListener("click", async () => {
+          const text = pre.innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Copied";
+            setTimeout(() => { button.textContent = "Copy"; }, 1600);
+          } catch (error) {
+            button.textContent = "Select text";
+            setTimeout(() => { button.textContent = "Copy"; }, 1800);
+          }
+        });
+        wrapper.appendChild(button);
+      });
+    </script>
   </body>
 </html>

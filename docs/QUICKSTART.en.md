@@ -37,12 +37,21 @@ I do not have a Map yet, but I need to understand my current situation. Give lim
 
 Correct behavior: the Navigator helps, but says the answer is provisional because the 9 Map blocks are not complete yet.
 
-## 4. User Language
+## 4. If the agent cannot write files automatically
+
+```text
+Use $personal-navigator-skill.
+Show me ready-to-save localized memory blocks, and I will save them manually. Start with NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md.
+```
+
+Correct behavior: the Navigator shows ready-to-save text in the user's language and clearly says where to save it.
+
+## 5. User Language
 
 The internal reference files are written in English. But answers, questions, the Map, journal, open loops, supplements, and ready-to-save blocks must be created in the user's language.
 
 Technical file names and lifecycle states may remain stable English identifiers.
 
-## 5. When Map V1 Is Ready
+## 6. When Map V1 Is Ready
 
 The Navigator should complete all 9 blocks, run an integration pass, remove duplicates, move uncertainty into `OPEN_LOOPS.md`, and only then announce the first full Map version.

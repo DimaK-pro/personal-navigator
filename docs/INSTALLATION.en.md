@@ -30,6 +30,20 @@ Important: the internal reference files are written in English as the portable c
 
 After installation, continue with [How to work](QUICKSTART.en.md).
 
+## If You Are New to GitHub
+
+1. Open the repository: https://github.com/DimaK-pro/personal-navigator
+2. Click **Code**.
+3. If Git is installed, use:
+
+```bash
+git clone https://github.com/DimaK-pro/personal-navigator.git
+cd personal-navigator
+```
+
+4. If Git is not installed, choose **Download ZIP**, unzip it, and open the `personal-navigator` folder in your agent environment.
+5. Run the commands below from the root of `personal-navigator`, where `personal-navigator-skill/` is located.
+
 ## Recommended Cross-Agent Path
 
 For environments that support the open `SKILL.md` format, the most portable project-local option is `.agents/skills/`:
