@@ -18,6 +18,7 @@ Use this file when the user is building or continuing the Personality Map.
 - Section Flow
 - Closing a Block
 - Closing the Full Map V1
+- Map V1 Confirmation
 - Quality Rules
 
 ## Mission
@@ -288,14 +289,40 @@ When all 9 blocks are complete enough:
 6. Update `PERSONALITY_MAP.md` to `Status: v1_ready` or equivalent translated status.
 7. Tell the user clearly that the first full Map is ready.
 8. Provide the Map document or a ready-to-save version if file writing is unavailable.
-9. Invite the user to read it carefully and notice what feels accurate, surprising, energizing, or not yet true.
-10. Explain that from now on full navigation can begin, but the Map remains living.
+9. Invite the user to read it carefully and notice what feels accurate, surprising, energizing, not true, missing, or weak.
+10. Set `NAVIGATOR_STATE.md` active workflow to `MAP_CONFIRMATION` and Map confirmation status to `pending`.
+11. Explain that full navigation begins after the user confirms the Map is accurate enough to navigate from.
 
 Use a human announcement, for example:
 
 ```text
 Your first complete Map is ready. This is not a final truth about you forever; it is the first coherent version of your living self-map. Read it slowly. The important part is not only that I now know you better, but that you can see yourself more clearly too.
+
+After you read it, tell me: what feels exactly right, what surprises you, what does not feel true, and what feels missing or weak? I will not treat the Map as confirmed until we resolve the important corrections.
 ```
+
+## Map V1 Confirmation
+
+Use this workflow after the first full Map V1 is presented.
+
+Ask for five kinds of feedback:
+
+1. What feels accurate and recognizable.
+2. What creates an "aha" effect.
+3. What does not feel true or feels overinterpreted.
+4. What feels missing, weak, or insufficiently anchored.
+5. What the user would phrase differently in their own words.
+
+Then:
+
+- keep confirmed material as Map memory;
+- revise grounded corrections;
+- move weak or unresolved conclusions to `OPEN_LOOPS.md`;
+- ask one precise anchor question for any important disputed conclusion;
+- do not defend the Map against lived reality;
+- mark the Map as confirmed only when the user says it is accurate enough for navigation.
+
+If the user gives broad approval but some areas are still weak, mark the Map as confirmed with named weak areas and active open loops. Full navigation can begin, but the weak areas must remain visible.
 
 ## Quality Rules
 

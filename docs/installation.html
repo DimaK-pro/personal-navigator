@@ -194,9 +194,11 @@
         border-radius: 8px;
         line-height: 1.5;
         font-size: 14px;
-        white-space: pre;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      pre code { display: block; white-space: inherit; overflow-wrap: anywhere; }
       :not(pre) > code { overflow-wrap: anywhere; }
       .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
@@ -243,7 +245,7 @@
     <main class="wrap">
       <h1>Установка Personal Navigator Skill</h1>
       <p class="lead">
-        Если вы не погружены в GitHub и agent skills, начните здесь. Вам нужно получить папку проекта, скопировать папку <code>personal-navigator-skill/</code> в место, где ваша агентная среда ищет skills, перезапустить агента и начать первый диалог.
+        Если вы не погружены в GitHub и agent skills, начните здесь. Лучший формат — отдельная папка <code>my-personal-navigator/</code>: в ней лежит skill, инструкция <code>AGENTS.md</code> и ваши личные файлы памяти.
       </p>
       <div class="actions">
         <a class="button" href="quickstart.html">Что делать после установки</a>
@@ -251,13 +253,13 @@
       </div>
 
       <div class="note">
-        <strong>Важно:</strong> команды ниже выполняются из корня скачанного репозитория <code>personal-navigator</code>. Личные файлы памяти пользователя создаются в вашем рабочем пространстве, а не внутри <code>personal-navigator-skill/</code>.
+        <strong>Важно:</strong> не смешивайте Personal Navigator с обычными рабочими проектами. Открывайте агента в отдельной папке Навигатора: тогда каждый новый чат сразу считывает <code>AGENTS.md</code>, видит состояние и продолжает работу с того места, где вы остановились.
       </div>
 
       <div class="path" aria-label="Путь установки">
         <div class="path-step"><span>01</span><h3>Скачать</h3><p>Получите репозиторий через Git или Download ZIP.</p></div>
-        <div class="path-step"><span>02</span><h3>Скопировать skill</h3><p>Перенесите <code>personal-navigator-skill/</code> в папку skills вашей среды.</p></div>
-        <div class="path-step"><span>03</span><h3>Перезапустить</h3><p>Перезапустите агента, чтобы он увидел новый skill.</p></div>
+        <div class="path-step"><span>02</span><h3>Создать папку</h3><p>Сделайте отдельный проект для личной навигации.</p></div>
+        <div class="path-step"><span>03</span><h3>Добавить AGENTS.md</h3><p>Он включает Personal Navigator для всех чатов в этой папке.</p></div>
         <div class="path-step"><span>04</span><h3>Начать Карту</h3><p>Попросите агента вести дружеское интервью.</p></div>
       </div>
 
@@ -265,43 +267,46 @@
       <p>Если у вас установлен Git, используйте команды:</p>
       <pre><code>git clone https://github.com/DimaK-pro/personal-navigator.git
 cd personal-navigator</code></pre>
-      <p>Если Git не установлен: откройте репозиторий из шапки, нажмите <strong>Code</strong>, выберите <strong>Download ZIP</strong>, распакуйте архив и откройте папку <code>personal-navigator</code> в своей агентной среде.</p>
+      <p>Если Git не установлен: откройте репозиторий из шапки, нажмите <strong>Code</strong>, выберите <strong>Download ZIP</strong> и распакуйте архив. Папка <code>personal-navigator</code> будет источником, из которого вы создадите отдельный Navigator-проект.</p>
 
-      <h2>2. Выберите вашу среду</h2>
+      <h2>2. Создайте отдельный Navigator-проект</h2>
+      <p>Из корня скачанного репозитория выполните:</p>
+      <pre><code>mkdir -p ../my-personal-navigator/.agents/skills
+cp -R personal-navigator-skill ../my-personal-navigator/.agents/skills/
+cp personal-navigator-skill/templates/AGENTS.md ../my-personal-navigator/AGENTS.md
+cd ../my-personal-navigator</code></pre>
+      <p>После этого открывайте Codex, Antigravity, Claude Code или другую агентную среду из папки <code>my-personal-navigator/</code>. Личные файлы <code>NAVIGATOR_STATE.md</code>, <code>PERSONALITY_MAP.md</code>, <code>DEVELOPMENT_JOURNAL.md</code> и <code>OPEN_LOOPS.md</code> будут создаваться рядом с <code>AGENTS.md</code>, а не внутри skill-пакета.</p>
+
+      <h2>3. Если вашей среде нужен другой путь</h2>
       <div class="grid">
-        <section class="card"><h3>Codex</h3><p>Личная установка для всех проектов.</p><pre><code>mkdir -p ~/.agents/skills
-cp -R personal-navigator-skill ~/.agents/skills/</code></pre></section>
-        <section class="card"><h3>Antigravity</h3><p>Workspace-установка внутри текущего проекта.</p><pre><code>mkdir -p .agents/skills
-cp -R personal-navigator-skill .agents/skills/</code></pre></section>
-        <section class="card"><h3>Claude Code</h3><p>Личная установка.</p><pre><code>mkdir -p ~/.claude/skills
-cp -R personal-navigator-skill ~/.claude/skills/</code></pre></section>
+        <section class="card"><h3>Codex / Antigravity</h3><p>Рекомендуемый project-путь внутри папки Навигатора.</p><pre><code>mkdir -p .agents/skills
+cp -R /path/to/personal-navigator/personal-navigator-skill .agents/skills/
+cp .agents/skills/personal-navigator-skill/templates/AGENTS.md AGENTS.md</code></pre></section>
         <section class="card"><h3>Claude Code project</h3><p>Установка только внутри текущего проекта.</p><pre><code>mkdir -p .claude/skills
-cp -R personal-navigator-skill .claude/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .claude/skills/
+cp .claude/skills/personal-navigator-skill/templates/AGENTS.md AGENTS.md</code></pre></section>
         <section class="card"><h3>OpenCode</h3><p>Project skill.</p><pre><code>mkdir -p .opencode/skills
-cp -R personal-navigator-skill .opencode/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .opencode/skills/</code></pre></section>
         <section class="card"><h3>Windsurf / Cascade</h3><p>Workspace skill.</p><pre><code>mkdir -p .windsurf/skills
-cp -R personal-navigator-skill .windsurf/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .windsurf/skills/</code></pre></section>
         <section class="card"><h3>GitHub Copilot / VS Code</h3><p>Project skill для репозитория.</p><pre><code>mkdir -p .github/skills
-cp -R personal-navigator-skill .github/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .github/skills/</code></pre></section>
         <section class="card"><h3>Cursor, Gemini CLI, Aider</h3><p>Используйте <code>AGENTS.md</code> как мост и попросите агента читать skill из репозитория.</p><pre><code>Read AGENTS.md and use Personal Navigator.
 Start with personal-navigator-skill/SKILL.md and guide me through the Personality Map.</code></pre></section>
       </div>
 
-      <h2>3. Перезапустите агента</h2>
-      <p>После копирования закройте и снова откройте Codex, Antigravity, Claude Code или другую среду. Это нужно, чтобы агент заново просканировал папки skills.</p>
+      <h2>4. Перезапустите агента</h2>
+      <p>После копирования закройте и снова откройте Codex, Antigravity, Claude Code или другую среду. Затем откройте именно папку <code>my-personal-navigator/</code>.</p>
 
-      <h2>4. Первый запрос после установки</h2>
-      <pre><code>Use $personal-navigator-skill.
-Хочу начать собирать мою Карту личности. Веди меня через дружеское интервью.</code></pre>
-      <p>Ожидаемое поведение: агент объяснит, что полная навигация начинается только после Карты, создаст или предложит создать файлы памяти и задаст первый человеческий вопрос.</p>
+      <h2>5. Первый запрос после установки</h2>
+      <pre><code>Хочу начать собирать мою Карту личности. Веди меня через дружеское интервью.</code></pre>
+      <p>Ожидаемое поведение: агент объяснит, что полная навигация начинается только после полной и подтверждённой Карты, создаст или предложит создать файлы памяти и задаст первый человеческий вопрос.</p>
 
-      <h2>5. Если агент не может сам писать файлы</h2>
-      <pre><code>Use $personal-navigator-skill.
-Ты не можешь записывать файлы автоматически. Покажи мне на русском готовые тексты для NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md и OPEN_LOOPS.md, чтобы я сохранил их вручную.</code></pre>
+      <h2>6. Если агент не может сам писать файлы</h2>
+      <pre><code>Ты не можешь записывать файлы автоматически. Покажи мне на русском готовые тексты для NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md и OPEN_LOOPS.md, чтобы я сохранил их вручную.</code></pre>
 
-      <h2>6. Проверка установки</h2>
-      <pre><code>Use Personal Navigator.
-У меня пока нет Карты личности. Начни со мной дружеское интервью и создай файлы памяти, если можешь.</code></pre>
+      <h2>7. Проверка установки</h2>
+      <pre><code>У меня пока нет Карты личности. Начни со мной дружеское интервью и создай файлы памяти, если можешь.</code></pre>
       <p>Если всё работает, агент не будет делать глубокие выводы без данных, отметит ограничение до полной Карты и начнёт сбор 9 блоков через спокойное интервью.</p>
 
       <div class="actions">
@@ -312,7 +317,7 @@ Start with personal-navigator-skill/SKILL.md and guide me through the Personalit
     </main>
 
     <footer>
-      <div class="wrap">Personal Navigator Skill. Установите skill, затем начните с Карты личности.</div>
+      <div class="wrap">Personal Navigator Skill. Создайте отдельный проект, затем начните с Карты личности.</div>
     </footer>
 
     <script>

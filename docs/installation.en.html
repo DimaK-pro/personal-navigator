@@ -194,9 +194,11 @@
         border-radius: 8px;
         line-height: 1.5;
         font-size: 14px;
-        white-space: pre;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      pre code { display: block; white-space: inherit; overflow-wrap: anywhere; }
       :not(pre) > code { overflow-wrap: anywhere; }
       .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
@@ -243,7 +245,7 @@
     <main class="wrap">
       <h1>Installing Personal Navigator Skill</h1>
       <p class="lead">
-        If you are not familiar with GitHub or agent skills, start here. You need to get the project folder, copy <code>personal-navigator-skill/</code> into the skills location used by your agent environment, restart the agent, and begin the first conversation.
+        If you are not familiar with GitHub or agent skills, start here. The best setup is a separate <code>my-personal-navigator/</code> folder containing the skill, <code>AGENTS.md</code>, and your private memory files.
       </p>
       <div class="actions">
         <a class="button" href="quickstart.en.html">What to do after installation</a>
@@ -251,13 +253,13 @@
       </div>
 
       <div class="note">
-        <strong>Important:</strong> run the commands below from the root of the downloaded <code>personal-navigator</code> repository. Private user memory files should be created in your active workspace, not inside <code>personal-navigator-skill/</code>.
+        <strong>Important:</strong> do not mix Personal Navigator with ordinary work projects. Open the agent inside the dedicated Navigator folder so each new chat reads <code>AGENTS.md</code>, sees the current state, and continues from where you stopped.
       </div>
 
       <div class="path" aria-label="Installation path">
         <div class="path-step"><span>01</span><h3>Download</h3><p>Get the repository through Git or Download ZIP.</p></div>
-        <div class="path-step"><span>02</span><h3>Copy the skill</h3><p>Move <code>personal-navigator-skill/</code> into your environment's skills folder.</p></div>
-        <div class="path-step"><span>03</span><h3>Restart</h3><p>Restart the agent so it discovers the new skill.</p></div>
+        <div class="path-step"><span>02</span><h3>Create a folder</h3><p>Make a dedicated project for personal navigation.</p></div>
+        <div class="path-step"><span>03</span><h3>Add AGENTS.md</h3><p>It activates Personal Navigator for all chats in that folder.</p></div>
         <div class="path-step"><span>04</span><h3>Start the Map</h3><p>Ask the agent to guide a friendly interview.</p></div>
       </div>
 
@@ -265,43 +267,46 @@
       <p>If Git is installed, use:</p>
       <pre><code>git clone https://github.com/DimaK-pro/personal-navigator.git
 cd personal-navigator</code></pre>
-      <p>If Git is not installed: open the repository from the header, click <strong>Code</strong>, choose <strong>Download ZIP</strong>, unzip it, and open the <code>personal-navigator</code> folder in your agent environment.</p>
+      <p>If Git is not installed: open the repository from the header, click <strong>Code</strong>, choose <strong>Download ZIP</strong>, and unzip it. The <code>personal-navigator</code> folder is the source you will use to create a separate Navigator project.</p>
 
-      <h2>2. Choose your environment</h2>
+      <h2>2. Create a dedicated Navigator project</h2>
+      <p>From the downloaded repository root, run:</p>
+      <pre><code>mkdir -p ../my-personal-navigator/.agents/skills
+cp -R personal-navigator-skill ../my-personal-navigator/.agents/skills/
+cp personal-navigator-skill/templates/AGENTS.md ../my-personal-navigator/AGENTS.md
+cd ../my-personal-navigator</code></pre>
+      <p>Then open Codex, Antigravity, Claude Code, or your agent environment from <code>my-personal-navigator/</code>. Private files such as <code>NAVIGATOR_STATE.md</code>, <code>PERSONALITY_MAP.md</code>, <code>DEVELOPMENT_JOURNAL.md</code>, and <code>OPEN_LOOPS.md</code> will be created beside <code>AGENTS.md</code>, not inside the skill package.</p>
+
+      <h2>3. If your environment needs a different path</h2>
       <div class="grid">
-        <section class="card"><h3>Codex</h3><p>Personal install across projects.</p><pre><code>mkdir -p ~/.agents/skills
-cp -R personal-navigator-skill ~/.agents/skills/</code></pre></section>
-        <section class="card"><h3>Antigravity</h3><p>Workspace install inside the current project.</p><pre><code>mkdir -p .agents/skills
-cp -R personal-navigator-skill .agents/skills/</code></pre></section>
-        <section class="card"><h3>Claude Code</h3><p>Personal install.</p><pre><code>mkdir -p ~/.claude/skills
-cp -R personal-navigator-skill ~/.claude/skills/</code></pre></section>
+        <section class="card"><h3>Codex / Antigravity</h3><p>Recommended project path inside the Navigator folder.</p><pre><code>mkdir -p .agents/skills
+cp -R /path/to/personal-navigator/personal-navigator-skill .agents/skills/
+cp .agents/skills/personal-navigator-skill/templates/AGENTS.md AGENTS.md</code></pre></section>
         <section class="card"><h3>Claude Code project</h3><p>Install only for the current project.</p><pre><code>mkdir -p .claude/skills
-cp -R personal-navigator-skill .claude/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .claude/skills/
+cp .claude/skills/personal-navigator-skill/templates/AGENTS.md AGENTS.md</code></pre></section>
         <section class="card"><h3>OpenCode</h3><p>Project skill.</p><pre><code>mkdir -p .opencode/skills
-cp -R personal-navigator-skill .opencode/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .opencode/skills/</code></pre></section>
         <section class="card"><h3>Windsurf / Cascade</h3><p>Workspace skill.</p><pre><code>mkdir -p .windsurf/skills
-cp -R personal-navigator-skill .windsurf/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .windsurf/skills/</code></pre></section>
         <section class="card"><h3>GitHub Copilot / VS Code</h3><p>Project skill for the repository.</p><pre><code>mkdir -p .github/skills
-cp -R personal-navigator-skill .github/skills/</code></pre></section>
+cp -R /path/to/personal-navigator/personal-navigator-skill .github/skills/</code></pre></section>
         <section class="card"><h3>Cursor, Gemini CLI, Aider</h3><p>Use <code>AGENTS.md</code> as a bridge and ask the agent to read the skill from this repository.</p><pre><code>Read AGENTS.md and use Personal Navigator.
 Start with personal-navigator-skill/SKILL.md and guide me through the Personality Map.</code></pre></section>
       </div>
 
-      <h2>3. Restart the agent</h2>
-      <p>After copying the folder, close and reopen Codex, Antigravity, Claude Code, or your chosen environment. This lets the agent rescan available skills.</p>
+      <h2>4. Restart the agent</h2>
+      <p>After copying the folder, close and reopen Codex, Antigravity, Claude Code, or your chosen environment. Then open the <code>my-personal-navigator/</code> folder.</p>
 
-      <h2>4. First prompt after installation</h2>
-      <pre><code>Use $personal-navigator-skill.
-I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
-      <p>Expected behavior: the agent explains that full navigation begins only after the Map, creates or offers memory files, and asks the first grounded human question.</p>
+      <h2>5. First prompt after installation</h2>
+      <pre><code>I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
+      <p>Expected behavior: the agent explains that full navigation begins only after the Map is complete and confirmed, creates or offers memory files, and asks the first grounded human question.</p>
 
-      <h2>5. If the agent cannot write files</h2>
-      <pre><code>Use $personal-navigator-skill.
-You cannot write files automatically. Show me ready-to-save English text for NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md so I can save them manually.</code></pre>
+      <h2>6. If the agent cannot write files</h2>
+      <pre><code>You cannot write files automatically. Show me ready-to-save English text for NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md so I can save them manually.</code></pre>
 
-      <h2>6. Verify installation</h2>
-      <pre><code>Use Personal Navigator.
-I do not have a Personality Map yet. Start a friendly interview with me and create memory files if you can.</code></pre>
+      <h2>7. Verify installation</h2>
+      <pre><code>I do not have a Personality Map yet. Start a friendly interview with me and create memory files if you can.</code></pre>
       <p>If it works, the agent will not make deep conclusions without data, will mark the limitation before a full Map exists, and will start building the 9 blocks through a calm interview.</p>
 
       <div class="actions">
@@ -312,7 +317,7 @@ I do not have a Personality Map yet. Start a friendly interview with me and crea
     </main>
 
     <footer>
-      <div class="wrap">Personal Navigator Skill. Install the skill, then start with the Personality Map.</div>
+      <div class="wrap">Personal Navigator Skill. Create a dedicated project, then start with the Personality Map.</div>
     </footer>
 
     <script>

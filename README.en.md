@@ -27,9 +27,10 @@ Recommended GitHub repository name: `personal-navigator`. The installable skill 
 ## New User Route
 
 1. Open the [Personal Navigator landing page](https://dimak-pro.github.io/personal-navigator/#en) to understand the idea and user journey.
-2. Go to the [installation guide](docs/INSTALLATION.en.md) and copy the commands for your agent environment.
-3. After installation, open [how to work after installation](docs/QUICKSTART.en.md): it has the first prompt and memory-file checks.
-4. If you already understand agent skills, use [`personal-navigator-skill/`](personal-navigator-skill/) directly.
+2. Create a dedicated project folder for your Navigator. This is where the skill, `AGENTS.md`, and your private memory files will live.
+3. Go to the [installation guide](docs/INSTALLATION.en.md) and copy the commands for your agent environment.
+4. After installation, open [how to work after installation](docs/QUICKSTART.en.md): it has the first prompt and memory-file checks.
+5. If you already understand agent skills, use [`personal-navigator-skill/`](personal-navigator-skill/) directly.
 
 If you open `docs/index.html` inside GitHub, GitHub will show the page source. The rendered Pages version is here: [https://dimak-pro.github.io/personal-navigator/](https://dimak-pro.github.io/personal-navigator/#en).
 
@@ -49,6 +50,14 @@ not a one-off answer -> but living development memory
 ```
 
 The main goal is to help a person gradually move toward a life that matches their deeper nature.
+
+In practice, after the Map is built and confirmed, the person gets more than a "bot with a prompt." They get a personal workspace:
+
+- the agent knows the current stage of the process;
+- it has a Personality Map that the user has reviewed and confirmed;
+- it remembers meaningful events, decisions, shifts, and repeated themes;
+- it records gaps and hypotheses instead of pretending everything is known;
+- every new chat inside that folder continues the same development process.
 
 ## Living Fire
 
@@ -74,12 +83,26 @@ stateDiagram-v2
     [*] --> NO_MAP
     NO_MAP --> MAP_BUILDING: user starts the Map
     MAP_BUILDING --> MAP_V1_READY: all 9 blocks are built
-    MAP_V1_READY --> NAVIGATION: full navigation begins
+    MAP_V1_READY --> MAP_CONFIRMATION: user reviews the Map
+    MAP_CONFIRMATION --> NAVIGATION: Map confirmed
     NAVIGATION --> REFLECTION_UPDATE: meaningful event, insight, or shift
     MAP_BUILDING --> REFLECTION_UPDATE: new information during Map building
     REFLECTION_UPDATE --> MAP_BUILDING
     REFLECTION_UPDATE --> NAVIGATION
 ```
+
+The simple internal logic is:
+
+```text
+dedicated project folder
+-> the agent reads AGENTS.md and understands this is Personal Navigator
+-> it checks NAVIGATOR_STATE.md and sees the current stage
+-> it builds or reads the Personality Map
+-> it checks conclusions against real examples, energy, and the current situation
+-> it writes insights, decisions, gaps, and updates back into memory
+```
+
+That is why the Navigator should not start from zero every time. It works as a personal orientation system that lives in one folder and gradually becomes more accurate.
 
 ### 1. No Map, No Full Navigation
 
@@ -99,9 +122,9 @@ The process of creating the Map is part of the methodology. Simple questions oft
 
 The Navigator does not copy direct answers into the Map. It uses answers as anchors, then carefully interprets them: connecting facts, contradictions, values, energy, and patterns into one coherent picture of the person. The finished Map should read not like a questionnaire, but like a living portrait assembled piece by piece.
 
-### 4. Full Navigation Starts After the Map
+### 4. Full Navigation Starts After Map Confirmation
 
-When all 9 blocks have been built to working depth, the Navigator can rely on:
+When all 9 blocks have been built to working depth and the user confirms that the Map is accurate enough, the Navigator can rely on:
 
 - the Personality Map;
 - current energy level;
@@ -122,7 +145,8 @@ After installation, the person should not have to figure out how to use the Navi
 4. **Progress without pressure.** During the process, the Navigator gently shows which Map blocks are already filled, which are still weak, and what next question will move things forward.
 5. **Help before the full Map.** If the person brings a real request before the Map is complete, the Navigator does not refuse. It says honestly that the answer will be limited, asks the missing questions, and uses the conversation to enrich the Map.
 6. **First Map V1.** When all 9 blocks are built, the Navigator rereads the material, checks contradictions, moves uncertainty into open loops, and gives the first coherent Map version. The person should read it carefully: this moment often brings strong clarity and inner support.
-7. **Living navigation.** After the Map, full work begins: decisions, goals, states, Ikigai, WOOP, reflection, journal updates, and careful Map development as the person changes.
+7. **Map confirmation.** The Navigator asks what feels accurate, surprising, not true, missing, or weak. Until important corrections are handled, the Map remains `pending`.
+8. **Living navigation.** After the Map is confirmed, full work begins: decisions, goals, states, Ikigai, WOOP, reflection, journal updates, and careful Map development as the person changes.
 
 Main principle: the Navigator should help the person move through this path calmly and with interest. It should not pressure, rush, or turn self-reflection into a heavy obligation.
 
@@ -155,28 +179,19 @@ Each block is stored as:
 The Navigator uses several memory files:
 
 ```text
-personal-navigator-skill/
-  README.md
-  SKILL.md
-  references/
-    core.md
-    lifecycle.md
-    map-structure.md
-    interview-protocol.md
-    navigation-modes.md
-    memory-model.md
-    update-protocol.md
-    safety-boundaries.md
-    language-and-platform.md
-    principles-library.md
-    validation-checklist.md
-  templates/
-    NAVIGATOR_STATE.md
-    PERSONALITY_MAP.md
-    DEVELOPMENT_JOURNAL.md
-    OPEN_LOOPS.md
-    supplements/
+my-personal-navigator/
+  AGENTS.md
+  NAVIGATOR_STATE.md
+  PERSONALITY_MAP.md
+  DEVELOPMENT_JOURNAL.md
+  OPEN_LOOPS.md
+  supplements/
+  .agents/
+    skills/
+      personal-navigator-skill/
 ```
+
+It is best to keep this in a dedicated project folder. Then every new chat opened inside that folder starts with the right context: the agent sees `AGENTS.md`, understands that this is Personal Navigator, reads the current state, and continues from where you stopped.
 
 ### `NAVIGATOR_STATE.md`
 
@@ -201,7 +216,7 @@ Optional second-layer context, such as domain maps, professional context, or fut
 ## Architectural Principles
 
 - **The person is more important than the Map.** If reality contradicts the old wording, investigate reality instead of defending the wording.
-- **The Map is mandatory for full navigation.** Without it, only limited navigation is available.
+- **The Map is mandatory for full navigation.** Before the Map is complete and confirmed, only limited or confirmation-pending navigation is available.
 - **No invention.** Facts, interpretations, hypotheses, and gaps must stay distinct.
 - **One strong question at a time.** The Map is built through dialogue, not interrogation.
 - **Models are not labels.** Typologies are lenses, not identities.
@@ -269,33 +284,38 @@ The first post-install user flow is documented in [How to work](docs/QUICKSTART.
 
 ## How to Work After Installation
 
-For a Codex-like environment:
+Recommended setup: create a dedicated project, for example `my-personal-navigator/`. The skill, agent instruction, and private memory live inside it.
 
 ```bash
-mkdir -p ~/.agents/skills
-cp -R personal-navigator-skill ~/.agents/skills/
+mkdir -p my-personal-navigator/.agents/skills
+cp -R personal-navigator-skill my-personal-navigator/.agents/skills/
+cp personal-navigator-skill/templates/AGENTS.md my-personal-navigator/AGENTS.md
+cd my-personal-navigator
 ```
+
+Open your agent environment from `my-personal-navigator/`. Then you do not need to explain the whole setup every time: `AGENTS.md` gives all chats in that folder the Personal Navigator context.
+
+Global installation into a shared skills directory is still possible, but for personal navigation a dedicated project is safer because tasks, memory, and Navigator state do not get mixed with unrelated work.
 
 Then start with:
 
 ```text
-Use $personal-navigator-skill.
 I want to start building my Personality Map. Guide me through a friendly interview.
 ```
 
 If you already have a Map:
 
 ```text
-Use $personal-navigator-skill.
 I have a Personality Map. Help me analyze a decision, but first check whether you have enough context.
 ```
 
 If you do not have a Map but need help now:
 
 ```text
-Use $personal-navigator-skill.
 I do not have a Map yet, but I need to understand my current situation. Give limited navigation and ask the missing questions.
 ```
+
+If the skill is installed globally and you are not using a dedicated `AGENTS.md`, prefix the request with `Use $personal-navigator-skill.`.
 
 ## Author Story
 

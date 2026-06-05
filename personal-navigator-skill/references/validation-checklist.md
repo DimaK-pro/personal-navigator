@@ -54,10 +54,14 @@ Use this file to check whether the skill behaved correctly on realistic scenario
 - Does it move uncertainty to open loops instead of hiding it?
 - Does it tell the user clearly that the first full Map version is ready?
 - Does it invite the user to read the Map as a coherent self-portrait and refine what feels inaccurate?
+- Does it ask what feels accurate, surprising, not true, missing, or weak?
+- Does it keep Map confirmation pending until the user confirms the Map is accurate enough for navigation?
 
 ### Full Navigation
 
 - Does it use Map + journal + open loops?
+- Does it reason across the relevant Map blocks instead of relying on one model, label, or block?
+- Does it treat unconfirmed or weak Map conclusions as hypotheses?
 - Does it avoid generic advice?
 - Does it give a next step that fits current energy?
 - Does the next step support clarity, energy, responsibility, or Living Fire instead of action for action's sake?

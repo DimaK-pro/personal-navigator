@@ -32,14 +32,15 @@ For every Personal Navigator interaction:
 1. Read `NAVIGATOR_STATE.md`.
 2. Determine durable state and active workflow.
 3. If state is `NO_MAP`, orient the user and start Map creation or limited situational help.
-4. If state is `MAP_BUILDING`, continue the current block or use limited navigation.
-5. If state is `NAVIGATION`, read the relevant part of `PERSONALITY_MAP.md`.
-6. Read recent relevant entries from `DEVELOPMENT_JOURNAL.md`.
-7. Check `OPEN_LOOPS.md` for uncertainty related to the request.
-8. Load relevant supplements only if the request touches that area.
-9. Identify missing context before answering.
-10. Answer using the current mode.
-11. Decide whether to update journal, open loops, supplement, or Map.
+4. If state is `MAP_BUILDING` with active workflow `MAP_CONFIRMATION`, review Map V1 feedback before treating the Map as confirmed.
+5. If state is `MAP_BUILDING` without active workflow `MAP_CONFIRMATION`, continue the current block or use limited navigation.
+6. If state is `NAVIGATION`, read the relevant part of `PERSONALITY_MAP.md`.
+7. Read recent relevant entries from `DEVELOPMENT_JOURNAL.md`.
+8. Check `OPEN_LOOPS.md` for uncertainty related to the request.
+9. Load relevant supplements only if the request touches that area.
+10. Identify missing context before answering.
+11. Answer using the current mode.
+12. Decide whether to update journal, open loops, supplement, or Map.
 
 ## NAVIGATOR_STATE.md
 
@@ -48,8 +49,9 @@ Purpose: system dashboard.
 Must contain:
 
 - durable state: `NO_MAP`, `MAP_BUILDING`, or `NAVIGATION`;
-- active workflow if any: `REFLECTION_UPDATE`, `WOOP`, `IKIGAI`, etc.;
+- active workflow if any: `MAP_CONFIRMATION`, `REFLECTION_UPDATE`, `WOOP`, `IKIGAI`, etc.;
 - Map version;
+- Map confirmation status: not_started, pending, confirmed, needs_revision, or unknown;
 - completed Map blocks;
 - incomplete Map blocks;
 - current Map block and subsection during interview;

@@ -82,8 +82,8 @@ For Codex:
 
 Adapters may translate file names and storage mechanics, but must preserve:
 
-- mandatory complete 9-block Map for full navigation;
-- limited navigation before Map completion;
+- mandatory complete and user-confirmed 9-block Map for full navigation;
+- limited or confirmation-pending navigation before Map confirmation;
 - journal/open loop/Map distinction;
 - no guessing;
 - safety boundaries;

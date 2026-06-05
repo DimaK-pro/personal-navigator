@@ -33,6 +33,17 @@ After each meaningful interaction, ask:
 
 If unsure, prefer journal or open loop over Map.
 
+## Event Capture
+
+After navigation, decide what changed at four levels:
+
+1. Current state changed -> update `NAVIGATOR_STATE.md`.
+2. A meaningful event, insight, decision, action, result, or state shift appeared -> update `DEVELOPMENT_JOURNAL.md`.
+3. A conclusion is uncertain, contradictory, disputed, or missing an anchor -> update `OPEN_LOOPS.md`.
+4. A stable identity-level pattern is confirmed or clearly outdated -> update `PERSONALITY_MAP.md`.
+
+Do not confuse these levels. A strong current emotion usually belongs in current state or journal, not the Map. A repeated state pattern may become Map material only after enough anchors exist.
+
 ## Journal Updates
 
 Update the journal when:
@@ -121,6 +132,7 @@ Before closing a block or Map V1, run an integration pass:
 
 Explicit confirmation is required when:
 
+- first Map V1 has been presented and needs user validation before full navigation;
 - new information strongly contradicts the existing Map;
 - the update changes a core identity-level conclusion;
 - the user appears emotionally unstable and the conclusion may be state-driven;

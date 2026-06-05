@@ -194,9 +194,11 @@
         border-radius: 8px;
         line-height: 1.5;
         font-size: 14px;
-        white-space: pre;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      pre code { display: block; white-space: inherit; overflow-wrap: anywhere; }
       :not(pre) > code { overflow-wrap: anywhere; }
       .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
@@ -243,47 +245,48 @@
     <main class="wrap">
       <h1>Как работать после установки</h1>
       <p class="lead">
-        Эта страница отвечает на вопрос: “skill уже установлен, что писать агенту и что должно происходить дальше?”. Personal Navigator начинается не с советов, а с Карты личности.
+        Эта страница отвечает на вопрос: “skill уже установлен, что писать агенту и что должно происходить дальше?”. Откройте агентную среду в отдельной папке Навигатора, где лежит <code>AGENTS.md</code>. Personal Navigator начинается не с советов, а с Карты личности.
       </p>
+      <div class="note">Если skill установлен как отдельный Navigator-проект, не нужно каждый раз писать <code>Use $personal-navigator-skill</code>: агент должен считывать <code>AGENTS.md</code> и понимать, что все чаты в этой папке относятся к Personal Navigator.</div>
       <div class="actions">
         <a class="button" href="installation.html">Установить skill</a>
       </div>
 
       <h2>1. Начните первый диалог</h2>
-      <pre><code>Use $personal-navigator-skill.
-Хочу начать собирать мою Карту личности. Веди меня через дружеское интервью.</code></pre>
+      <pre><code>Хочу начать собирать мою Карту личности. Веди меня через дружеское интервью.</code></pre>
       <div class="step"><strong>Что должен сделать агент:</strong><p>Объяснить, что без Карты полная персональная навигация пока невозможна, создать или предложить файлы памяти и задать первый живой вопрос.</p></div>
 
       <h2>2. Проверьте, где создаётся память</h2>
-      <p>В вашем рабочем пространстве или выбранной папке памяти должны появиться:</p>
-      <pre><code>NAVIGATOR_STATE.md
+      <p>В отдельной папке Navigator-проекта должны появиться:</p>
+      <pre><code>AGENTS.md
+NAVIGATOR_STATE.md
 PERSONALITY_MAP.md
 DEVELOPMENT_JOURNAL.md
 OPEN_LOOPS.md
-supplements/</code></pre>
+supplements/
+.agents/skills/personal-navigator-skill/</code></pre>
       <p>Это личная память пользователя. Она не должна храниться внутри <code>personal-navigator-skill/</code>, потому что сама папка skill является установочным пакетом.</p>
 
       <h2>3. Отвечайте обычным языком</h2>
       <p>Навигатор должен задавать один сильный вопрос за раз. Хороший ответ не обязан быть красивым; он должен быть честным и опираться на реальные ситуации, выборы, последствия и ощущения энергии.</p>
 
       <h2>4. Если нужна помощь до полной Карты</h2>
-      <pre><code>Use $personal-navigator-skill.
-Карты пока нет, но мне нужно разобраться с текущей ситуацией. Дай ограниченную навигацию и задай недостающие вопросы.</code></pre>
+      <pre><code>Карты пока нет, но мне нужно разобраться с текущей ситуацией. Дай ограниченную навигацию и задай недостающие вопросы.</code></pre>
       <p>Правильное поведение: агент помогает, но честно говорит, что ответ предварительный, потому что 9 блоков Карты ещё не собраны.</p>
 
       <h2>5. Если файлы нельзя записывать автоматически</h2>
-      <pre><code>Use $personal-navigator-skill.
-Показывай мне готовые локализованные блоки для файлов памяти, а я буду сохранять их вручную. Начни с NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md и OPEN_LOOPS.md.</code></pre>
+      <pre><code>Показывай мне готовые локализованные блоки для файлов памяти, а я буду сохранять их вручную. Начни с NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md и OPEN_LOOPS.md.</code></pre>
 
       <h2>6. Когда Карта V1 готова</h2>
       <p>Агент должен пройти все 9 блоков, сделать final integration pass, убрать повторы, вынести неопределённость в <code>OPEN_LOOPS.md</code> и только потом объявить первую полную Карту готовой.</p>
+      <p>После презентации V1 агент должен спросить, что откликается, что удивляет, что не кажется верным, что пропущено или слабо. Полная навигация начинается после того, как пользователь подтвердил, что Карта достаточно точна для работы.</p>
 
       <div class="note">Все ответы, вопросы, Карта, журнал и open loops должны быть на языке пользователя. Английские reference-файлы — это внутреннее ядро, не пользовательский интерфейс.</div>
 
     </main>
 
     <footer>
-      <div class="wrap">Personal Navigator Skill. Сначала Карта, потом навигация.</div>
+      <div class="wrap">Personal Navigator Skill. Откройте отдельную папку, начните с Карты, потом переходите к навигации.</div>
     </footer>
 
     <script>

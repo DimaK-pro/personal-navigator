@@ -557,7 +557,7 @@
                 Когда все 9 блоков собраны, Навигатор не просто сохраняет файл. Он перечитывает материал, убирает повторы, проверяет противоречия, отмечает слабые места и только потом отдаёт первую полную версию Карты.
               </p>
               <p>
-                Когда читаешь такую Карту, появляется редкое ощущение: “Да, это правда про меня”. В этом много силы. Не потому что AI всё знает, а потому что он помог собрать вас в одну понятную картину.
+                После этого Навигатор просит проверить Карту: что откликается, что удивляет, что не кажется верным и где не хватает точности. В этом много силы. Не потому что AI всё знает, а потому что он помог собрать вас в одну понятную картину, а затем сверил её с вами.
               </p>
             </div>
           </div>
@@ -591,14 +591,46 @@
 
         <section>
           <div class="wrap">
+            <h2>Почему это работает как система</h2>
+            <p class="section-lead">
+              Personal Navigator — это не один длинный промпт. Лучше всего он работает как отдельная папка-проект: агент открывает её, читает инструкцию, видит память и продолжает тот же путь, а не начинает знакомство заново.
+            </p>
+            <div class="path-grid">
+              <article class="path-step">
+                <span>01</span>
+                <h3>Отдельная папка</h3>
+                <p>В одном месте лежат skill, <code>AGENTS.md</code>, Карта, журнал, open loops и supplements.</p>
+              </article>
+              <article class="path-step">
+                <span>02</span>
+                <h3>Агент знает правила</h3>
+                <p><code>AGENTS.md</code> говорит: все чаты в этой папке — работа Personal Navigator.</p>
+              </article>
+              <article class="path-step">
+                <span>03</span>
+                <h3>Ответы идут через Карту</h3>
+                <p>Навигатор сверяет запрос с 9 блоками, текущей энергией, жизненным этапом и открытыми вопросами.</p>
+              </article>
+              <article class="path-step">
+                <span>04</span>
+                <h3>Память обновляется</h3>
+                <p>События идут в журнал, неопределённость — в open loops, а Карта меняется только с якорями.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
             <h2>Архитектура</h2>
             <p class="section-lead">
-              Внутри это простая и строгая логика: сначала Карты нет, потом она собирается, затем появляется первая полная версия, после этого включается полноценная навигация и обновление памяти.
+              Внутри это простая и строгая логика: сначала Карты нет, потом она собирается, затем появляется первая полная версия, пользователь её проверяет, после этого включается полноценная навигация и обновление памяти.
             </p>
             <div class="flow" aria-label="Navigator lifecycle">
               <div class="flow-step"><strong>NO_MAP</strong><span>Карты ещё нет</span></div>
               <div class="flow-step"><strong>MAP_BUILDING</strong><span>Дружеское интервью</span></div>
               <div class="flow-step"><strong>MAP_V1_READY</strong><span>9 блоков собраны</span></div>
+              <div class="flow-step"><strong>MAP_CONFIRMATION</strong><span>Проверка пользователем</span></div>
               <div class="flow-step"><strong>NAVIGATION</strong><span>Полная навигация</span></div>
               <div class="flow-step"><strong>REFLECTION_UPDATE</strong><span>Живое обновление</span></div>
             </div>
@@ -626,7 +658,7 @@
           <div class="wrap">
             <h2>Для каких сред</h2>
             <p class="section-lead">
-              Skill можно использовать в Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes и адаптировать через AGENTS.md для Cursor, Gemini CLI, Aider и других сред.
+              Skill можно использовать в Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes и адаптировать через AGENTS.md для Cursor, Gemini CLI, Aider и других сред. Рекомендуемый сценарий — отдельный Navigator-проект, чтобы все чаты и память жили в одной папке.
             </p>
             <div class="actions">
               <a class="button" href="installation.html">Установить</a>
@@ -775,7 +807,7 @@
                 When all 9 blocks are complete, the Navigator does not just save a file. It rereads the material, removes duplicates, checks contradictions, marks weak areas, and only then gives the first complete Map version.
               </p>
               <p>
-                Reading it can bring a rare feeling: “Yes, this is true about me.” The power is not that AI knows everything. The power is that it helped assemble you into one clear picture.
+                After that, the Navigator asks you to check the Map: what feels accurate, surprising, not true, and where more precision is needed. The power is not that AI knows everything. The power is that it helped assemble you into one clear picture, then checked that picture with you.
               </p>
             </div>
           </div>
@@ -809,14 +841,46 @@
 
         <section>
           <div class="wrap">
+            <h2>Why this works as a system</h2>
+            <p class="section-lead">
+              Personal Navigator is not one long prompt. It works best as a dedicated project folder: the agent opens it, reads the instruction, sees the memory, and continues the same path instead of starting over.
+            </p>
+            <div class="path-grid">
+              <article class="path-step">
+                <span>01</span>
+                <h3>Dedicated folder</h3>
+                <p>The skill, <code>AGENTS.md</code>, Map, journal, open loops, and supplements live in one place.</p>
+              </article>
+              <article class="path-step">
+                <span>02</span>
+                <h3>The agent knows the rules</h3>
+                <p><code>AGENTS.md</code> says that all chats in this folder are Personal Navigator work.</p>
+              </article>
+              <article class="path-step">
+                <span>03</span>
+                <h3>Answers go through the Map</h3>
+                <p>The Navigator checks the request against 9 blocks, current energy, life stage, and open questions.</p>
+              </article>
+              <article class="path-step">
+                <span>04</span>
+                <h3>Memory gets updated</h3>
+                <p>Events go to the journal, uncertainty goes to open loops, and the Map changes only with anchors.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="wrap">
             <h2>Architecture</h2>
             <p class="section-lead">
-              The skill is built as a state machine: from no Map to Map building, then full navigation and regular memory updates.
+              The skill is built as a state machine: from no Map to Map building, then first Map V1, user confirmation, full navigation, and regular memory updates.
             </p>
             <div class="flow" aria-label="Navigator lifecycle">
               <div class="flow-step"><strong>NO_MAP</strong><span>No usable Map yet</span></div>
               <div class="flow-step"><strong>MAP_BUILDING</strong><span>Friendly interview</span></div>
               <div class="flow-step"><strong>MAP_V1_READY</strong><span>9 blocks complete</span></div>
+              <div class="flow-step"><strong>MAP_CONFIRMATION</strong><span>User review</span></div>
               <div class="flow-step"><strong>NAVIGATION</strong><span>Full navigation</span></div>
               <div class="flow-step"><strong>REFLECTION_UPDATE</strong><span>Living updates</span></div>
             </div>
@@ -844,7 +908,7 @@
           <div class="wrap">
             <h2>Agent Environments</h2>
             <p class="section-lead">
-              The skill can run in Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes, and can be adapted through AGENTS.md for Cursor, Gemini CLI, Aider, and other environments.
+              The skill can run in Codex, Claude Code, Antigravity, OpenCode, Windsurf/Cascade, GitHub Copilot/VS Code, Hermes, and can be adapted through AGENTS.md for Cursor, Gemini CLI, Aider, and other environments. The recommended workflow is a dedicated Navigator project so all chats and memory live in one folder.
             </p>
             <div class="actions">
               <a class="button" href="installation.en.html">Install</a>

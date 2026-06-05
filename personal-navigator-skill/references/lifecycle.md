@@ -9,6 +9,7 @@ Use this file to determine what the Navigator is allowed to do at each stage.
 - MAP_BUILDING
 - Limited Navigation During Map Building
 - MAP_V1_READY
+- MAP_CONFIRMATION
 - NAVIGATION
 - REFLECTION_UPDATE Workflow
 
@@ -17,12 +18,16 @@ Use this file to determine what the Navigator is allowed to do at each stage.
 Lifecycle flow:
 
 ```text
-NO_MAP -> MAP_BUILDING -> MAP_V1_READY (milestone) -> NAVIGATION
+NO_MAP -> MAP_BUILDING -> MAP_V1_READY (milestone) -> MAP_CONFIRMATION -> NAVIGATION
 ```
 
 Durable states stored in `NAVIGATOR_STATE.md` are `NO_MAP`, `MAP_BUILDING`, and `NAVIGATION`.
 
-`MAP_V1_READY` is a transition milestone: it is reached after the final integration pass confirms that all 9 blocks have working depth. After the milestone is announced and the first Map V1 is provided, the durable state becomes `NAVIGATION`.
+`MAP_V1_READY` is a transition milestone: it is reached after the final integration pass confirms that all 9 blocks have working depth.
+
+`MAP_CONFIRMATION` is a temporary workflow after the first Map V1 is presented. During this workflow, the user reviews the Map, corrects inaccurate conclusions, names missing or weak areas, and confirms whether the Map is accurate enough to navigate from. The durable state remains `MAP_BUILDING` until confirmation is complete.
+
+After the user confirms Map V1 as accurate enough, the durable state becomes `NAVIGATION`.
 
 `REFLECTION_UPDATE` is a temporary workflow, not a durable state. It runs inside `MAP_BUILDING` or `NAVIGATION`, then returns to the previous durable state.
 
@@ -51,7 +56,7 @@ Do not pretend to know the person deeply.
 
 ## MAP_BUILDING
 
-Meaning: the Personality Map is being built and not all 9 blocks are complete.
+Meaning: the Personality Map is being built and not all 9 blocks are complete, or Map V1 exists but is still awaiting user confirmation through `MAP_CONFIRMATION`.
 
 Behavior:
 
@@ -106,16 +111,39 @@ Required:
 
 Behavior:
 
-- Confirm that full navigation can now begin.
 - Tell the user that the first complete Map version is ready and invite them to read it carefully.
 - Explain that reading the Map can itself create clarity because it assembles many small answers into one coherent self-picture.
 - Identify weak or incomplete areas.
 - Treat the Map as living, not final.
-- Transition durable state to `NAVIGATION`.
+- Update `NAVIGATOR_STATE.md`: keep durable state as `MAP_BUILDING`, set active workflow to `MAP_CONFIRMATION`, set Map version to `v1_pending_confirmation`, and set Map confirmation status to `pending`.
+- Ask the user explicitly what feels accurate, surprising, not true, missing, or weak.
+- Do not transition durable state to `NAVIGATION` yet.
+
+## MAP_CONFIRMATION
+
+Meaning: the first complete Map exists, but the user has not yet confirmed that it is accurate enough for navigation.
+
+Behavior:
+
+- Ask for user feedback on accuracy before using the Map as settled identity memory.
+- Invite correction, not politeness. The goal is truth, not approval.
+- Sort feedback into confirmed material, corrections, missing anchors, weak hypotheses, and contradictions.
+- Update `PERSONALITY_MAP.md` for corrections that are clearly grounded.
+- Create or update `OPEN_LOOPS.md` for uncertain, weak, or unresolved points.
+- Update `DEVELOPMENT_JOURNAL.md` if the review creates a meaningful insight or turning point.
+- Ask one precise follow-up question when a major correction needs an anchor.
+- When the user confirms the Map is accurate enough, update `PERSONALITY_MAP.md` status to `v1_confirmed` or equivalent translated status, set Map confirmation status to `confirmed`, clear active workflow, and transition durable state to `NAVIGATION`.
+
+If the user asks for guidance before confirmation:
+
+- say that the answer uses a complete but not yet confirmed Map;
+- avoid high-impact identity conclusions unless they are strongly anchored;
+- treat disputed or weak areas as hypotheses;
+- ask for confirmation when the recommendation depends on an unconfirmed Map conclusion.
 
 ## NAVIGATION
 
-Meaning: the Navigator can answer using the complete Personality Map, development history, current state, open loops, relevant supplements, and safety boundaries.
+Meaning: the Navigator can answer using the complete and user-confirmed Personality Map, development history, current state, open loops, relevant supplements, and safety boundaries.
 
 Behavior:
 

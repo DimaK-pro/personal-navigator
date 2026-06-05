@@ -18,6 +18,7 @@ personal-navigator-skill/
 
 For full operation, Personal Navigator needs an environment where the agent can read instructions and create/update memory files:
 
+- `AGENTS.md`
 - `NAVIGATOR_STATE.md`
 - `PERSONALITY_MAP.md`
 - `DEVELOPMENT_JOURNAL.md`
@@ -41,41 +42,64 @@ git clone https://github.com/DimaK-pro/personal-navigator.git
 cd personal-navigator
 ```
 
-4. If Git is not installed, choose **Download ZIP**, unzip it, and open the `personal-navigator` folder in your agent environment.
+4. If Git is not installed, choose **Download ZIP** and unzip it. The `personal-navigator` folder is the source you will use to create a separate Navigator project.
 5. Run the commands below from the root of `personal-navigator`, where `personal-navigator-skill/` is located.
 
-## Recommended Cross-Agent Path
+## Recommended Setup: A Dedicated Navigator Project
 
-For environments that support the open `SKILL.md` format, the most portable project-local option is `.agents/skills/`:
+For personal work, create a separate folder such as `my-personal-navigator/`. This is not the source repository; it is your workspace. It contains `AGENTS.md`, the skill, and your private memory files.
+
+From the downloaded repository root, run:
 
 ```bash
-mkdir -p .agents/skills
-cp -R personal-navigator-skill .agents/skills/
+mkdir -p ../my-personal-navigator/.agents/skills
+cp -R personal-navigator-skill ../my-personal-navigator/.agents/skills/
+cp personal-navigator-skill/templates/AGENTS.md ../my-personal-navigator/AGENTS.md
+cd ../my-personal-navigator
 ```
 
-This path is supported by several modern agent environments and works well for open-source repositories.
+The resulting workspace looks like this:
 
-For personal use across all projects, use the global skills directory of your agent environment.
+```text
+my-personal-navigator/
+  AGENTS.md
+  NAVIGATOR_STATE.md
+  PERSONALITY_MAP.md
+  DEVELOPMENT_JOURNAL.md
+  OPEN_LOOPS.md
+  supplements/
+  .agents/
+    skills/
+      personal-navigator-skill/
+```
+
+Open your agent environment from `my-personal-navigator/`. Then every new chat reads `AGENTS.md`, understands that this is Personal Navigator, checks the current state, and continues from where you stopped.
+
+If your environment does not read `.agents/skills/`, use the appropriate project path below, but keep the same principle: the skill and private memory should live in a dedicated Navigator project.
+
+Global installation into a shared skills directory is possible for advanced users, but it is not the primary Personal Navigator workflow. Personal memory is safer in a separate workspace.
 
 ## Codex
 
 Status: native skills support.
 
-Personal install:
+Recommended project install:
 
 ```bash
-mkdir -p ~/.agents/skills
-cp -R personal-navigator-skill ~/.agents/skills/
+mkdir -p .agents/skills
+cp -R /path/to/personal-navigator/personal-navigator-skill .agents/skills/
+cp .agents/skills/personal-navigator-skill/templates/AGENTS.md AGENTS.md
 ```
 
-Restart Codex after installation so the skill is discovered.
+Open Codex from the Navigator project folder. If you still want a global skill available in every project, use `~/.agents/skills/`, but keep private memory files in a dedicated workspace.
 
-Example prompt:
+Example prompt inside the Navigator project:
 
 ```text
-Use $personal-navigator-skill.
 I want to start building my Personality Map. Guide me through a friendly interview.
 ```
+
+If the skill is installed globally and the project does not have `AGENTS.md`, prefix the request with `Use $personal-navigator-skill.`.
 
 After the skill is published in a catalog or available by GitHub URL, it can also be installed through `$skill-installer`.
 
@@ -83,19 +107,15 @@ After the skill is published in a catalog or available by GitHub URL, it can als
 
 Status: native `SKILL.md` support.
 
-Personal install:
-
-```bash
-mkdir -p ~/.claude/skills
-cp -R personal-navigator-skill ~/.claude/skills/
-```
-
-Project install:
+Recommended project install:
 
 ```bash
 mkdir -p .claude/skills
-cp -R personal-navigator-skill .claude/skills/
+cp -R /path/to/personal-navigator/personal-navigator-skill .claude/skills/
+cp .claude/skills/personal-navigator-skill/templates/AGENTS.md AGENTS.md
 ```
+
+Optional personal install across projects: `~/.claude/skills/`. For Personal Navigator, keep private memory files in a dedicated folder anyway.
 
 Claude Code can load the skill automatically from its description or manually through a slash command:
 
@@ -138,7 +158,7 @@ mkdir -p .opencode/skills
 cp -R personal-navigator-skill .opencode/skills/
 ```
 
-Global install:
+Optional global install:
 
 ```bash
 mkdir -p ~/.config/opencode/skills
@@ -167,7 +187,7 @@ mkdir -p .windsurf/skills
 cp -R personal-navigator-skill .windsurf/skills/
 ```
 
-Global install:
+Optional global install:
 
 ```bash
 mkdir -p ~/.codeium/windsurf/skills
@@ -192,7 +212,7 @@ mkdir -p .github/skills
 cp -R personal-navigator-skill .github/skills/
 ```
 
-Personal install:
+Optional personal install:
 
 ```bash
 mkdir -p ~/.copilot/skills
@@ -225,7 +245,9 @@ Minimal `AGENTS.md`:
 ```markdown
 # Personal Navigator
 
-When the user asks for Personal Navigator, personality map, self-navigation, reflection, development journal, or Living Fire work, read:
+All chats in this folder are Personal Navigator work.
+
+At the start of every chat, read:
 
 - personal-navigator-skill/SKILL.md
 - personal-navigator-skill/references/core.md
@@ -245,7 +267,9 @@ If your Gemini environment does not discover `SKILL.md` as a native skill, adapt
 ```markdown
 # Personal Navigator
 
-For Personal Navigator work, load and follow personal-navigator-skill/SKILL.md.
+All chats in this folder are Personal Navigator work.
+
+Load and follow personal-navigator-skill/SKILL.md.
 Use references/ only when needed.
 Use templates/ to create the Navigator memory files.
 ```
@@ -254,7 +278,7 @@ Use templates/ to create the Navigator memory files.
 
 Status: `SKILL.md` skills support.
 
-Personal install:
+Optional personal install:
 
 ```bash
 mkdir -p ~/.hermes/skills
@@ -279,7 +303,7 @@ Use `AGENTS.md` as a bridge:
 
 This repository contains a Personal Navigator skill in personal-navigator-skill/.
 
-When the user asks to use Personal Navigator:
+All chats in this folder are Personal Navigator work.
 
 1. Read personal-navigator-skill/SKILL.md.
 2. Read personal-navigator-skill/references/core.md and personal-navigator-skill/references/lifecycle.md.
@@ -305,7 +329,6 @@ Which Personal Navigator skills or instructions are available in this project?
 Then run the first practical scenario:
 
 ```text
-Use Personal Navigator.
 I do not have a Personality Map yet. Start a friendly interview with me and create memory files if you can.
 ```
 

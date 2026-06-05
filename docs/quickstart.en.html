@@ -194,9 +194,11 @@
         border-radius: 8px;
         line-height: 1.5;
         font-size: 14px;
-        white-space: pre;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      pre code { display: block; white-space: inherit; overflow-wrap: anywhere; }
       :not(pre) > code { overflow-wrap: anywhere; }
       .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
@@ -243,47 +245,48 @@
     <main class="wrap">
       <h1>How to work after installation</h1>
       <p class="lead">
-        This page answers the practical question: “the skill is installed, what do I ask the agent and what should happen next?” Personal Navigator starts with the Personality Map, not with advice.
+        This page answers the practical question: “the skill is installed, what do I ask the agent and what should happen next?” Open your agent environment inside the dedicated Navigator folder where <code>AGENTS.md</code> lives. Personal Navigator starts with the Personality Map, not with advice.
       </p>
+      <div class="note">If the skill is installed as a dedicated Navigator project, you do not need to type <code>Use $personal-navigator-skill</code> every time: the agent should read <code>AGENTS.md</code> and understand that all chats in this folder belong to Personal Navigator.</div>
       <div class="actions">
         <a class="button" href="installation.en.html">Install the skill</a>
       </div>
 
       <h2>1. Start the first conversation</h2>
-      <pre><code>Use $personal-navigator-skill.
-I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
+      <pre><code>I want to start building my Personality Map. Guide me through a friendly interview.</code></pre>
       <div class="step"><strong>Expected agent behavior:</strong><p>It explains that full personal navigation is unavailable without a Map, creates or offers memory files, and asks the first grounded human question.</p></div>
 
       <h2>2. Check where memory is created</h2>
-      <p>Your active workspace or chosen memory folder should contain:</p>
-      <pre><code>NAVIGATOR_STATE.md
+      <p>The dedicated Navigator project folder should contain:</p>
+      <pre><code>AGENTS.md
+NAVIGATOR_STATE.md
 PERSONALITY_MAP.md
 DEVELOPMENT_JOURNAL.md
 OPEN_LOOPS.md
-supplements/</code></pre>
+supplements/
+.agents/skills/personal-navigator-skill/</code></pre>
       <p>This is private user memory. It should not be stored inside <code>personal-navigator-skill/</code>, because the skill folder is the installable package.</p>
 
       <h2>3. Answer in ordinary language</h2>
       <p>The Navigator should ask one strong question at a time. A good answer does not need to sound polished; it should be honest and grounded in real situations, choices, consequences, and energy.</p>
 
       <h2>4. If help is needed before the full Map</h2>
-      <pre><code>Use $personal-navigator-skill.
-I do not have a Map yet, but I need to understand my current situation. Give limited navigation and ask the missing questions.</code></pre>
+      <pre><code>I do not have a Map yet, but I need to understand my current situation. Give limited navigation and ask the missing questions.</code></pre>
       <p>Correct behavior: the agent helps, but clearly says the answer is provisional because the 9 Map blocks are not complete yet.</p>
 
       <h2>5. If files cannot be written automatically</h2>
-      <pre><code>Use $personal-navigator-skill.
-Show me ready-to-save localized memory blocks, and I will save them manually. Start with NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md.</code></pre>
+      <pre><code>Show me ready-to-save localized memory blocks, and I will save them manually. Start with NAVIGATOR_STATE.md, PERSONALITY_MAP.md, DEVELOPMENT_JOURNAL.md, and OPEN_LOOPS.md.</code></pre>
 
       <h2>6. When Map V1 is ready</h2>
       <p>The agent should complete all 9 blocks, run a final integration pass, remove duplicates, move uncertainty into <code>OPEN_LOOPS.md</code>, and only then announce the first full Map version.</p>
+      <p>After presenting V1, the agent should ask what feels accurate, surprising, not true, missing, or weak. Full navigation starts after the user confirms that the Map is accurate enough to work from.</p>
 
       <div class="note">Answers, questions, the Map, journal, and open loops should be in the user's language. English reference files are the internal core, not the user interface.</div>
 
     </main>
 
     <footer>
-      <div class="wrap">Personal Navigator Skill. Start with the Map, then navigate from it.</div>
+      <div class="wrap">Personal Navigator Skill. Open the dedicated folder, start with the Map, then navigate from it.</div>
     </footer>
 
     <script>

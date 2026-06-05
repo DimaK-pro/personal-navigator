@@ -5,6 +5,7 @@ Template note: when creating a user memory file, translate headings, field label
 Version: 0.1
 Language: user_language
 Status: draft
+User confirmation: not_started
 
 This Map is written from the first person. Do not fill empty sections with guesses. Use `OPEN_LOOPS.md` for missing anchors, hypotheses, and contradictions.
 

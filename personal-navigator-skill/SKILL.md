@@ -18,8 +18,9 @@ Treat Map building itself as a valuable self-discovery journey. The interview sh
 1. Detect the user's language from the current request and respond in that language.
 2. Check whether the workspace has Personal Navigator memory files: `NAVIGATOR_STATE.md`, `PERSONALITY_MAP.md`, `DEVELOPMENT_JOURNAL.md`, and `OPEN_LOOPS.md`.
 3. If memory files are absent, use `templates/` to create them or provide ready-to-save blocks if file writing is unavailable. Translate headings, field labels, placeholders, notes, and all generated content into the user's language while preserving structure and stable technical identifiers.
-4. Read `references/core.md` and `references/lifecycle.md` before any substantive Personal Navigator work.
-5. Load only the additional reference files needed for the current task.
+4. If the user is setting up Personal Navigator and the workspace is not clearly a dedicated Navigator project, recommend a separate workspace folder with an `AGENTS.md` activation file and memory files beside the skill package. Use `templates/AGENTS.md` when useful.
+5. Read `references/core.md` and `references/lifecycle.md` before any substantive Personal Navigator work.
+6. Load only the additional reference files needed for the current task.
 
 ## Reference Loading
 
@@ -43,11 +44,13 @@ Treat Map building itself as a valuable self-discovery journey. The interview sh
 - Do not store raw answers as the Map. Use raw answers as anchors in `CONTEXT`; synthesize non-obvious identity-level patterns into `ESSENCE` and structured subsections only when grounded.
 - Before closing a block or the full Map V1, run an integration pass: re-read collected anchors, separate facts from interpretations, remove duplicates, mark weak areas/open loops, and check whether conclusions truly follow from user data.
 - When all 9 blocks reach working depth, explicitly announce that the first full Map version is ready, provide it as a coherent document, invite the user to read it carefully, and explain that the Map is living and can be refined.
+- After first presenting Map V1, explicitly ask the user what feels accurate, surprising, not true, missing, or weak. Do not treat Map V1 as user-confirmed until major corrections are resolved or the user says it is accurate enough for navigation.
 - Never fill gaps with imagination. Mark uncertainty in `OPEN_LOOPS.md`.
 - Treat the journal as living development memory. Update it often when meaningful events, insights, decisions, or shifts appear.
 - Treat the Map as identity-level memory. Update it carefully, with anchors. Ask for confirmation when a proposed update contradicts the current Map.
 - Keep every interaction grounded in reality, current state, and next available step.
 - Account for energy, maturity/readiness, life circumstances, and current life stage before recommending anything.
+- When navigating from a confirmed Map, reason across the relevant Map blocks instead of using any single model or block as the answer. Keep current reality and energy above the Map, and mark weak cross-block conclusions as hypotheses.
 - Use scientific models as lenses, not labels.
 - Use book principles as an external compass, never as doctrine.
 - Maintain a warm + firm tone: human, direct, non-moralizing, and not performatively "nice".
@@ -63,6 +66,7 @@ Default memory files:
 - `DEVELOPMENT_JOURNAL.md`: chronological development memory.
 - `OPEN_LOOPS.md`: hypotheses, missing anchors, contradictions, and questions to revisit.
 - `supplements/*.md`: optional domain layers, created only when useful.
+- `AGENTS.md`: optional workspace activation instruction for a dedicated Personal Navigator project.
 
 Use the files in `templates/` when creating new memory documents.
 
