@@ -17,15 +17,24 @@
         --moss: #55715b;
       }
       * { box-sizing: border-box; }
+      html { max-width: 100%; overflow-x: hidden; }
       body {
+        min-width: 0;
+        max-width: 100%;
         margin: 0;
+        overflow-x: hidden;
         background: var(--bg);
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         line-height: 1.65;
       }
       a { color: var(--sea); text-underline-offset: 0.18em; }
-      .wrap { width: min(980px, calc(100% - 32px)); margin: 0 auto; }
+      .wrap {
+        width: min(980px, calc(100% - 32px));
+        max-width: 980px;
+        min-width: 0;
+        margin: 0 auto;
+      }
       header {
         border-bottom: 1px solid var(--line);
         background: rgba(251, 251, 248, 0.94);
@@ -35,22 +44,68 @@
       }
       .top {
         min-height: 64px;
-        display: flex;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
         align-items: center;
-        justify-content: space-between;
         gap: 16px;
       }
-      .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; color: var(--ink); }
-      .brand img { width: 34px; height: 34px; }
-      nav { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
-      nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
-      main { padding: 56px 0; }
-      h1 { margin: 0; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; letter-spacing: 0; }
+      .brand {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .brand img { width: 34px; height: 34px; flex: 0 0 auto; }
+      .brand span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .site-nav {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .nav-link {
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .lang-switch {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .lang-switch a {
+        min-width: 44px;
+        min-height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .lang-switch a[aria-current="page"] { background: var(--ink); color: #fff; }
+      main { min-width: 0; padding: 52px 0; }
+      h1 { margin: 0; font-size: clamp(34px, 7vw, 58px); line-height: 1.04; letter-spacing: 0; }
       h2 { margin: 44px 0 14px; font-size: 27px; line-height: 1.18; letter-spacing: 0; }
       h3 { margin: 0 0 8px; font-size: 18px; }
+      h1, h2, h3, p, li { overflow-wrap: break-word; }
       p.lead { color: var(--muted); max-width: 800px; font-size: 19px; margin: 18px 0 0; }
       .actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0 0; }
       .button {
+        max-width: 100%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -60,6 +115,7 @@
         background: var(--ink);
         border: 1px solid var(--ink);
         color: #fff;
+        text-align: center;
         text-decoration: none;
         font-weight: 750;
       }
@@ -73,12 +129,14 @@
         border-radius: 8px;
       }
       .path {
+        min-width: 0;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 12px;
         margin: 28px 0 0;
       }
       .path-step, .card, .step {
+        min-width: 0;
         background: var(--panel);
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -91,11 +149,17 @@
       }
       .path-step p, .card p, .step p { color: var(--muted); margin: 8px 0 0; }
       .grid {
+        min-width: 0;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
       }
-      .code-copy { position: relative; margin: 16px 0; }
+      .code-copy {
+        max-width: 100%;
+        min-width: 0;
+        position: relative;
+        margin: 16px 0;
+      }
       .code-copy pre { margin: 0; padding-top: 48px; }
       .copy-button {
         position: absolute;
@@ -112,20 +176,39 @@
         font-size: 13px;
       }
       pre {
+        max-width: 100%;
+        min-width: 0;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         background: #20201d;
         color: #ffffff;
         padding: 16px;
         border-radius: 8px;
         line-height: 1.5;
+        font-size: 14px;
+        white-space: pre;
       }
       code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      :not(pre) > code { overflow-wrap: anywhere; }
       .muted { color: var(--muted); }
       footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
       @media (max-width: 820px) {
-        .top { align-items: flex-start; flex-direction: column; padding: 12px 0; }
-        nav { justify-content: flex-start; }
+        .top { grid-template-columns: 1fr; gap: 8px; padding: 12px 0; }
+        .site-nav { justify-content: flex-start; gap: 8px 12px; }
+        .lang-switch { order: -1; }
         .grid, .path { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 460px) {
+        .wrap { width: min(100% - 20px, 980px); }
+        main { padding: 36px 0; }
+        h1 { font-size: clamp(31px, 10vw, 40px); }
+        h2 { font-size: 23px; }
+        p.lead { font-size: 17px; }
+        .actions { gap: 8px; }
+        .button { width: 100%; min-height: 44px; padding: 0 14px; }
+        .nav-link { font-size: 13px; min-height: 32px; }
+        .copy-button { font-size: 12px; }
+        pre { font-size: 13px; padding-left: 12px; padding-right: 12px; }
       }
 
     </style>
@@ -137,11 +220,14 @@
           <img src="assets/logo-ai-navigator.svg" alt="">
           <span>Personal Navigator</span>
         </a>
-        <nav aria-label="Navigation">
-          <a href="index.html">Лендинг</a>
-          <a href="quickstart.html">Как работать</a>
-          <a href="https://github.com/DimaK-pro/personal-navigator">GitHub</a>
-          <a href="installation.en.html">English</a>
+        <nav class="site-nav" aria-label="Navigation">
+          <div class="lang-switch" aria-label="Language">
+            <a href="installation.html" aria-current="page">RU</a>
+            <a href="installation.en.html" >EN</a>
+          </div>
+          <a class="nav-link" href="index.html">Лендинг</a>
+          <a class="nav-link" href="quickstart.html">Как работать</a>
+          <a class="nav-link" href="https://github.com/DimaK-pro/personal-navigator">Репозиторий</a>
         </nav>
       </div>
     </header>
@@ -152,9 +238,8 @@
         Если вы не погружены в GitHub и agent skills, начните здесь. Вам нужно получить папку проекта, скопировать папку <code>personal-navigator-skill/</code> в место, где ваша агентная среда ищет skills, перезапустить агента и начать первый диалог.
       </p>
       <div class="actions">
-        <a class="button" href="https://github.com/DimaK-pro/personal-navigator">Открыть репозиторий</a>
-        <a class="button secondary" href="quickstart.html">Что делать после установки</a>
-        <a class="button secondary" href="installation.en.html">English guide</a>
+        <a class="button" href="quickstart.html">Что делать после установки</a>
+        <a class="button secondary" href="INSTALLATION.md">Полная Markdown-инструкция</a>
       </div>
 
       <div class="note">
@@ -172,58 +257,26 @@
       <p>Если у вас установлен Git, используйте команды:</p>
       <pre><code>git clone https://github.com/DimaK-pro/personal-navigator.git
 cd personal-navigator</code></pre>
-      <p>Если Git не установлен: откройте репозиторий, нажмите <strong>Code</strong>, выберите <strong>Download ZIP</strong>, распакуйте архив и откройте папку <code>personal-navigator</code> в своей агентной среде.</p>
+      <p>Если Git не установлен: откройте репозиторий из шапки, нажмите <strong>Code</strong>, выберите <strong>Download ZIP</strong>, распакуйте архив и откройте папку <code>personal-navigator</code> в своей агентной среде.</p>
 
       <h2>2. Выберите вашу среду</h2>
       <div class="grid">
-        <section class="card">
-          <h3>Codex</h3>
-          <p>Личная установка для всех проектов.</p>
-          <pre><code>mkdir -p ~/.agents/skills
-cp -R personal-navigator-skill ~/.agents/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>Antigravity</h3>
-          <p>Workspace-установка внутри текущего проекта.</p>
-          <pre><code>mkdir -p .agents/skills
-cp -R personal-navigator-skill .agents/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>Claude Code</h3>
-          <p>Личная установка.</p>
-          <pre><code>mkdir -p ~/.claude/skills
-cp -R personal-navigator-skill ~/.claude/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>Claude Code project</h3>
-          <p>Установка только внутри текущего проекта.</p>
-          <pre><code>mkdir -p .claude/skills
-cp -R personal-navigator-skill .claude/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>OpenCode</h3>
-          <p>Project skill.</p>
-          <pre><code>mkdir -p .opencode/skills
-cp -R personal-navigator-skill .opencode/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>Windsurf / Cascade</h3>
-          <p>Workspace skill.</p>
-          <pre><code>mkdir -p .windsurf/skills
-cp -R personal-navigator-skill .windsurf/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>GitHub Copilot / VS Code</h3>
-          <p>Project skill для репозитория.</p>
-          <pre><code>mkdir -p .github/skills
-cp -R personal-navigator-skill .github/skills/</code></pre>
-        </section>
-        <section class="card">
-          <h3>Cursor, Gemini CLI, Aider</h3>
-          <p>Используйте <code>AGENTS.md</code> как мост и попросите агента читать skill из репозитория.</p>
-          <pre><code>Read AGENTS.md and use Personal Navigator.
-Start with personal-navigator-skill/SKILL.md and guide me through the Personality Map.</code></pre>
-        </section>
+        <section class="card"><h3>Codex</h3><p>Личная установка для всех проектов.</p><pre><code>mkdir -p ~/.agents/skills
+cp -R personal-navigator-skill ~/.agents/skills/</code></pre></section>
+        <section class="card"><h3>Antigravity</h3><p>Workspace-установка внутри текущего проекта.</p><pre><code>mkdir -p .agents/skills
+cp -R personal-navigator-skill .agents/skills/</code></pre></section>
+        <section class="card"><h3>Claude Code</h3><p>Личная установка.</p><pre><code>mkdir -p ~/.claude/skills
+cp -R personal-navigator-skill ~/.claude/skills/</code></pre></section>
+        <section class="card"><h3>Claude Code project</h3><p>Установка только внутри текущего проекта.</p><pre><code>mkdir -p .claude/skills
+cp -R personal-navigator-skill .claude/skills/</code></pre></section>
+        <section class="card"><h3>OpenCode</h3><p>Project skill.</p><pre><code>mkdir -p .opencode/skills
+cp -R personal-navigator-skill .opencode/skills/</code></pre></section>
+        <section class="card"><h3>Windsurf / Cascade</h3><p>Workspace skill.</p><pre><code>mkdir -p .windsurf/skills
+cp -R personal-navigator-skill .windsurf/skills/</code></pre></section>
+        <section class="card"><h3>GitHub Copilot / VS Code</h3><p>Project skill для репозитория.</p><pre><code>mkdir -p .github/skills
+cp -R personal-navigator-skill .github/skills/</code></pre></section>
+        <section class="card"><h3>Cursor, Gemini CLI, Aider</h3><p>Используйте <code>AGENTS.md</code> как мост и попросите агента читать skill из репозитория.</p><pre><code>Read AGENTS.md and use Personal Navigator.
+Start with personal-navigator-skill/SKILL.md and guide me through the Personality Map.</code></pre></section>
       </div>
 
       <h2>3. Перезапустите агента</h2>
@@ -246,7 +299,6 @@ Start with personal-navigator-skill/SKILL.md and guide me through the Personalit
       <div class="actions">
         <a class="button" href="quickstart.html">Как работать после установки</a>
         <a class="button secondary" href="INSTALLATION.md">Полная Markdown-инструкция</a>
-        <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">GitHub repository</a>
       </div>
 
     </main>

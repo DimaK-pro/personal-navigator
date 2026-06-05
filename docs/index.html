@@ -26,7 +26,14 @@
         box-sizing: border-box;
       }
 
+      html {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
       body {
+        max-width: 100%;
+        overflow-x: hidden;
         margin: 0;
         background: var(--bg);
         color: var(--ink);
@@ -42,6 +49,7 @@
 
       .wrap {
         width: min(1120px, calc(100% - 32px));
+        min-width: 0;
         margin: 0 auto;
       }
 
@@ -252,6 +260,7 @@
       }
 
       .card {
+        min-width: 0;
         background: var(--panel);
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -306,6 +315,7 @@
       }
 
       .story-panel {
+        min-width: 0;
         background: var(--panel);
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -423,7 +433,7 @@
           <a class="nav-link" href="#top">Top</a>
           <a class="nav-link" id="quickstartLink" href="quickstart.html">Как работать</a>
           <a class="nav-link" id="installLink" href="installation.html">Установка</a>
-          <a class="nav-link" href="https://github.com/DimaK-pro/personal-navigator">GitHub</a>
+          <a class="nav-link" id="repoLink" href="https://github.com/DimaK-pro/personal-navigator">Репозиторий</a>
           <a class="nav-link" href="https://t.me/dmitry_kozyura">Telegram</a>
         </nav>
       </div>
@@ -445,7 +455,6 @@
               <div class="actions">
                 <a class="button" href="installation.html">Установить</a>
                 <a class="button secondary" href="quickstart.html">Как работать</a>
-                <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">Открыть GitHub</a>
               </div>
             </div>
             <aside class="compass-card">
@@ -610,7 +619,6 @@
               <a class="button" href="installation.html">Установить</a>
               <a class="button secondary" href="quickstart.html">Как работать</a>
               <a class="button secondary" href="installation.en.html">English install guide</a>
-              <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">Открыть репозиторий</a>
             </div>
           </div>
         </section>
@@ -665,7 +673,6 @@
               <div class="actions">
                 <a class="button" href="installation.en.html">Install</a>
                 <a class="button secondary" href="quickstart.en.html">How to work</a>
-                <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">Open GitHub</a>
               </div>
             </div>
             <aside class="compass-card">
@@ -830,7 +837,6 @@
               <a class="button" href="installation.en.html">Install</a>
               <a class="button secondary" href="quickstart.en.html">How to work</a>
               <a class="button secondary" href="installation.html">Русская инструкция</a>
-              <a class="button secondary" href="https://github.com/DimaK-pro/personal-navigator">Open repository</a>
             </div>
           </div>
         </section>
@@ -886,6 +892,7 @@
         document.documentElement.lang = language;
         const installLink = document.getElementById("installLink");
         const quickstartLink = document.getElementById("quickstartLink");
+        const repoLink = document.getElementById("repoLink");
         if (installLink) {
           installLink.href = language === "en" ? "installation.en.html" : "installation.html";
           installLink.textContent = language === "en" ? "Install" : "Установка";
@@ -893,6 +900,9 @@
         if (quickstartLink) {
           quickstartLink.href = language === "en" ? "quickstart.en.html" : "quickstart.html";
           quickstartLink.textContent = language === "en" ? "How to work" : "Как работать";
+        }
+        if (repoLink) {
+          repoLink.textContent = language === "en" ? "Repository" : "Репозиторий";
         }
         buttons.forEach((button) => {
           button.setAttribute("aria-pressed", String(button.dataset.langButton === language));
