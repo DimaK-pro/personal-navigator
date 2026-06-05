@@ -69,14 +69,22 @@
         flex-wrap: wrap;
       }
       .nav-link {
-        min-height: 36px;
+        min-height: 34px;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
         color: var(--ink);
         text-decoration: none;
         font-size: 14px;
+        font-weight: 700;
         white-space: nowrap;
       }
+      .nav-link.primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+      .nav-link[aria-current="page"] { border-color: var(--ink); }
       .lang-switch {
         display: inline-flex;
         border: 1px solid var(--line);
@@ -225,9 +233,9 @@
             <a href="quickstart.html" aria-current="page">RU</a>
             <a href="quickstart.en.html" >EN</a>
           </div>
-          <a class="nav-link" href="index.html">Лендинг</a>
+          <a class="nav-link primary" href="https://github.com/DimaK-pro/personal-navigator">Репозиторий</a>
           <a class="nav-link" href="installation.html">Установка</a>
-          <a class="nav-link" href="https://github.com/DimaK-pro/personal-navigator">Репозиторий</a>
+          <a class="nav-link" href="quickstart.html" aria-current="page">Как работать</a>
         </nav>
       </div>
     </header>

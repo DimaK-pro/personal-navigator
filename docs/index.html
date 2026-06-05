@@ -74,7 +74,9 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        color: var(--ink);
         font-weight: 750;
+        text-decoration: none;
       }
 
       .brand img {
@@ -118,9 +120,22 @@
         min-height: 36px;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
         color: var(--ink);
         font-size: 14px;
+        font-weight: 700;
         text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .nav-link.primary {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: #fff;
       }
 
       .button {
@@ -421,20 +436,18 @@
   <body>
     <header class="topbar" id="top">
       <div class="wrap topbar-inner">
-        <div class="brand">
+        <a class="brand" href="index.html">
           <img src="assets/logo-ai-navigator.svg" alt="">
           <span>Personal Navigator</span>
-        </div>
+        </a>
         <nav class="nav" aria-label="Main navigation">
           <div class="lang-switch" aria-label="Language">
             <button type="button" data-lang-button="ru" aria-pressed="true">RU</button>
             <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
           </div>
-          <a class="nav-link" href="#top">Top</a>
-          <a class="nav-link" id="quickstartLink" href="quickstart.html">Как работать</a>
+          <a class="nav-link primary" id="repoLink" href="https://github.com/DimaK-pro/personal-navigator">Репозиторий</a>
           <a class="nav-link" id="installLink" href="installation.html">Установка</a>
-          <a class="nav-link" id="repoLink" href="https://github.com/DimaK-pro/personal-navigator">Репозиторий</a>
-          <a class="nav-link" href="https://t.me/dmitry_kozyura">Telegram</a>
+          <a class="nav-link" id="quickstartLink" href="quickstart.html">Как работать</a>
         </nav>
       </div>
     </header>
