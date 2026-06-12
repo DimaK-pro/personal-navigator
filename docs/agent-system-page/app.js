@@ -124,6 +124,16 @@
   function renderSystem() {
     const { section } = sectionShell(content.system.id, "главный интерактив", content.system.title, content.system.intro);
     section.classList.add("system-section");
+    const systemIconNames = {
+      agent: "spark",
+      sandbox: "shield",
+      project: "file",
+      artifacts: "file",
+      skills: "check",
+      tools: "link",
+      automations: "arrow",
+      control: "shield"
+    };
 
     const hint = node("p", "system-hint", content.system.hint);
     hint.prepend(icon("spark"));
@@ -134,25 +144,11 @@
 
     const lineLayer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     lineLayer.setAttribute("class", "connection-layer");
-    lineLayer.setAttribute("viewBox", "0 0 760 620");
     lineLayer.setAttribute("aria-hidden", "true");
     content.system.items.forEach((item) => {
       if (item.key === "agent") return;
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
       line.dataset.line = item.key;
-      line.setAttribute("x1", "380");
-      line.setAttribute("y1", "310");
-      const points = {
-        sandbox: [380, 82],
-        project: [600, 145],
-        artifacts: [635, 310],
-        skills: [535, 505],
-        tools: [225, 505],
-        automations: [125, 310],
-        control: [160, 145]
-      };
-      line.setAttribute("x2", points[item.key][0]);
-      line.setAttribute("y2", points[item.key][1]);
       lineLayer.append(line);
     });
     canvas.append(lineLayer);
@@ -165,6 +161,9 @@
       button.style.setProperty("--accent", item.accent);
       button.setAttribute("aria-pressed", item.key === "agent" ? "true" : "false");
       button.setAttribute("aria-label", `${item.title}. ${item.mapDescription}`);
+      const iconWrap = node("span", "node-icon");
+      iconWrap.append(icon(systemIconNames[item.key]));
+      button.append(iconWrap);
       button.append(node("span", "node-label", item.label));
       button.append(node("span", "node-title", item.title));
       button.append(node("span", "node-copy", item.mapDescription));
@@ -177,28 +176,29 @@
     detail.setAttribute("aria-label", "Подробности выбранного элемента системы");
     detail.setAttribute("tabindex", "-1");
 
-    canvas.append(detail);
-    board.append(canvas);
+    board.append(canvas, detail);
     section.append(hint, board);
 
-    function positionDetail(activeButton) {
-      if (!activeButton || !detail.isConnected) return;
+    function updateLines() {
       const canvasRect = canvas.getBoundingClientRect();
-      const buttonRect = activeButton.getBoundingClientRect();
-      const detailWidth = Math.min(360, canvasRect.width - 32);
-      const below = buttonRect.bottom - canvasRect.top + 12;
-      const above = buttonRect.top - canvasRect.top - detail.offsetHeight - 12;
-      let left = buttonRect.left - canvasRect.left + buttonRect.width / 2 - detailWidth / 2;
-      let top = below;
+      if (!canvasRect.width || !canvasRect.height) return;
+      const coreButton = buttons.find((button) => button.dataset.topic === "agent");
+      if (!coreButton) return;
 
-      left = Math.max(16, Math.min(left, canvasRect.width - detailWidth - 16));
-      if (top + detail.offsetHeight > canvasRect.height - 16 && above > 16) {
-        top = above;
-      }
+      const coreRect = coreButton.getBoundingClientRect();
+      const startX = coreRect.left - canvasRect.left + coreRect.width / 2;
+      const startY = coreRect.top - canvasRect.top + coreRect.height / 2;
+      lineLayer.setAttribute("viewBox", `0 0 ${canvasRect.width} ${canvasRect.height}`);
 
-      detail.style.width = `${detailWidth}px`;
-      detail.style.left = `${left}px`;
-      detail.style.top = `${Math.max(16, top)}px`;
+      canvas.querySelectorAll("[data-line]").forEach((line) => {
+        const targetButton = buttons.find((button) => button.dataset.topic === line.dataset.line);
+        if (!targetButton) return;
+        const targetRect = targetButton.getBoundingClientRect();
+        line.setAttribute("x1", startX);
+        line.setAttribute("y1", startY);
+        line.setAttribute("x2", targetRect.left - canvasRect.left + targetRect.width / 2);
+        line.setAttribute("y2", targetRect.top - canvasRect.top + targetRect.height / 2);
+      });
     }
 
     let currentButton = buttons[0];
@@ -232,9 +232,16 @@
       const source = linkNode(item.source, "source-link");
       source.prepend(icon("link"));
       detail.append(source);
-      requestAnimationFrame(() => positionDetail(currentButton));
+      requestAnimationFrame(updateLines);
       if (shouldFocusDetail) {
-        requestAnimationFrame(() => detail.focus({ preventScroll: true }));
+        requestAnimationFrame(() => {
+          const isMobile = window.matchMedia("(max-width: 760px)").matches;
+          if (isMobile) {
+            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            detail.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
+          }
+          detail.focus({ preventScroll: true });
+        });
       }
     }
 
@@ -242,7 +249,11 @@
       button.addEventListener("click", () => setActive(button.dataset.topic, true));
     });
 
-    window.addEventListener("resize", () => positionDetail(currentButton));
+    if ("ResizeObserver" in window) {
+      const lineObserver = new ResizeObserver(() => updateLines());
+      lineObserver.observe(canvas);
+    }
+    window.addEventListener("resize", updateLines);
     setActive("agent");
     return section;
   }
